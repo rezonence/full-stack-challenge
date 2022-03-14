@@ -1,0 +1,34 @@
+name: Build and test CI
+
+on:
+  push:
+    paths:
+      - '**'
+      - '!**/README.md'
+
+
+jobs:
+  test:
+    name: Build and test
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip CI')"
+    steps:
+      
+      - uses: actions/checkout@v2
+        name: Check out source code
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Synthesize infrastructure
+        run: yarn synth
