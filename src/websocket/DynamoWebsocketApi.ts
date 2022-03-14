@@ -36,7 +36,7 @@ export class DynamoWebsocketApi extends Construct {
         entry: require.resolve('./disconnect/handler')
       })
       for (const handler of [this.connectHandler, this.disconnectHandler]) {
-        this.table.grantReadWriteData(handler);
+        this.table.grantReadWriteData(handler)
       }
       this.api = new WebSocketApi(this, `${id}Api`, {
         connectRouteOptions: { integration: new WebSocketLambdaIntegration(`${id}ConnectIntegration`, this.connectHandler) },
