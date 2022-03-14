@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 import { resolveTableName } from '../resolveTableName';
-import { sortKey } from "../sortKey";
+import { TableKey } from '../TableKey';
 
 const ddb = new DynamoDB.DocumentClient();
 
@@ -11,7 +11,7 @@ export const handler: APIGatewayProxyHandler = async event => {
         await ddb.delete({
             TableName: resolveTableName() as string,
             Key: {
-                [sortKey]: event.requestContext.connectionId,
+                [TableKey.Sort]: event.requestContext.connectionId,
             }
         }).promise();
     } catch (err) {

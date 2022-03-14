@@ -1,1 +1,1 @@
-export const tableNameParam = "TABLE_NAME";
+export const tableNameParam = 'TABLE_NAME'

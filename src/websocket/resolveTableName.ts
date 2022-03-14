@@ -1,5 +1,5 @@
-import { tableNameParam } from "./tableNameParam";
+import { tableNameParam } from './tableNameParam'
 
-export function resolveTableName(): string | undefined {
-    return process.env[tableNameParam];
+export function resolveTableName (): string | undefined {
+  return process.env[tableNameParam]
 }

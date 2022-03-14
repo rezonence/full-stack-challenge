@@ -1,3 +1,3 @@
-import { TableKey } from "./TableKey";
+import { TableKey } from './TableKey'
 
 export type TableItem = Record<TableKey, string>;
