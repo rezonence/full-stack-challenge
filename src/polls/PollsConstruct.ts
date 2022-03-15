@@ -2,7 +2,7 @@ import { RemovalPolicy } from 'aws-cdk-lib'
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { Construct } from 'constructs'
 import { PollKey } from './PollKey'
-import { VoteKey } from './VoteKey';
+import { VoteKey } from './VoteKey'
 
 export class PollsConstruct extends Construct {
     public readonly polls: Table;
