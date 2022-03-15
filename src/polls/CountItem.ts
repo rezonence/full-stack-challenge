@@ -1,4 +1,4 @@
-import { CountKey } from "./CountKey";
+import { CountKey } from './CountKey'
 
 export interface CountItem {
     [CountKey.PollId]: string;

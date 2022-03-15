@@ -1,5 +1,5 @@
 export enum PollingTable {
-    Votes = "Votes",
-    Polls = "Polls",
-    Counts = "Counts"
+    Votes = 'Votes',
+    Polls = 'Polls',
+    Counts = 'Counts'
 }

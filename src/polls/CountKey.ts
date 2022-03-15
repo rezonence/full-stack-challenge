@@ -1,4 +1,4 @@
 export enum CountKey {
-    PollId = "pollId",
-    Choice = "choice"
+    PollId = 'pollId',
+    Choice = 'choice'
 }
