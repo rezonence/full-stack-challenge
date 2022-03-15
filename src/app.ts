@@ -1,8 +1,8 @@
 import { App } from 'aws-cdk-lib'
-import { CounterStack } from './CounterStack'
+import { PollStack } from './PollStack'
 
 const app = new App()
-const stack = new CounterStack(app, 'CounterStack', {
+const stack = new PollStack(app, 'Poll', {
   stage: 'dev'
 })
 console.log(stack.toString())
