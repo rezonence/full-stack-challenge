@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler } from 'aws-lambda'
 import { DynamoDB } from 'aws-sdk'
 import { resolveTableName } from '../resolveTableName'
-import { TableKey } from '../TableKey'
+import { toTableItem } from '../toTableItem'
 
 const ddb = new DynamoDB.DocumentClient()
 
@@ -9,9 +9,7 @@ export const handler: APIGatewayProxyHandler = async event => {
   try {
     await ddb.put({
       TableName: resolveTableName() as string,
-      Item: {
-        [TableKey.Sort]: event.requestContext.connectionId
-      }
+      Item: toTableItem(event)
     }).promise()
   } catch (err) {
     return { statusCode: 500, body: `Failed to connect: ${JSON.stringify(err)}` }
