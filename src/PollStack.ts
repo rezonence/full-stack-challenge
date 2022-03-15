@@ -1,5 +1,5 @@
 import { RemovalPolicy, Stack } from 'aws-cdk-lib'
-import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb';
+import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { Construct } from 'constructs'
 import { PollStackProps } from './PollStackProps'
 import { DynamoWebsocketApi } from './websocket'

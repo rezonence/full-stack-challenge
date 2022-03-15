@@ -1,4 +1,4 @@
-import { PollKey } from "./PollKey";
+import { PollKey } from './PollKey'
 
 export interface Poll extends Record<PollKey, string> {
     question: string;

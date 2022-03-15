@@ -1,3 +1,3 @@
 export enum PollKey {
-    Id = "id"
+    Id = 'id'
 }

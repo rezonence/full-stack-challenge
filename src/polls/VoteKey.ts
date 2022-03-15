@@ -1,4 +1,4 @@
 export enum VoteKey {
-    IdentityId = "identityId",
-    PollId = "pollId"
+    IdentityId = 'identityId',
+    PollId = 'pollId'
 }
