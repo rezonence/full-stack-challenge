@@ -3,9 +3,9 @@ import { Table } from 'aws-cdk-lib/aws-dynamodb'
 
 export interface SiteConstructOptions {
     identityPool: IdentityPool;
-    configFileName: string;
     votes: Table;
     polls: Table;
     region: string;
     websocketEndpoint: string;
+    distFolder: string;
 }

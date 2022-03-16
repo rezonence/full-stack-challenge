@@ -7,4 +7,4 @@ const stack = new PollStack(app, 'Poll', {
   stage: 'dev',
   tableOptions: defaultTableOptions
 })
-console.log(stack.toString())
+console.log(stack.stackName)

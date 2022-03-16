@@ -104,3 +104,4 @@ dist
 .tern-port
 lib
 cdk.out
+dist

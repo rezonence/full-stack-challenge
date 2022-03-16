@@ -1,16 +1,18 @@
-import { Stack } from 'aws-cdk-lib'
+import { CfnOutput, Stack } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
 import { PollStackProps } from './PollStackProps'
 import { DynamoWebsocketApi } from './websocket'
 import { PollsConstruct } from './polls'
 import { AuthenticationConstruct } from './authentication'
 import { SiteConstruct } from './site'
+import { resolve } from 'path'
 
 export class PollStack extends Stack {
     public readonly websocketApi: DynamoWebsocketApi;
     public readonly polls: PollsConstruct;
     public readonly authentication: AuthenticationConstruct;
     public readonly site: SiteConstruct;
+    public readonly websiteOutput;
     constructor (scope: Construct, id: string, props: PollStackProps) {
       super(scope, id, props)
       this.websocketApi = new DynamoWebsocketApi(this, `${id}Api`, props)
@@ -28,8 +30,9 @@ export class PollStack extends Stack {
         votes: this.polls.tables.Votes,
         polls: this.polls.tables.Polls,
         region: this.region,
-        configFileName: 'config.json',
-        websocketEndpoint
+        websocketEndpoint,
+        distFolder: resolve(__dirname, '..', 'dist')
       })
+      this.websiteOutput = new CfnOutput(this, 'websiteUrl', { value: this.site.bucket.bucketWebsiteUrl })
     }
 }

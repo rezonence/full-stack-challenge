@@ -3,7 +3,7 @@ import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
 import { Bucket, IBucket } from 'aws-cdk-lib/aws-s3'
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment'
 import { Construct } from 'constructs'
-import { SiteConfig } from './SiteConfig'
+import { configFileName, SiteConfig } from '../poller'
 import { SiteConstructOptions } from './SiteConstructOptions'
 
 export class SiteConstruct extends Construct {
@@ -28,7 +28,7 @@ export class SiteConstruct extends Construct {
         identityPoolId: options.identityPool.identityPoolId
       }
       this.deployment = new BucketDeployment(this, `${id}Deployment`, {
-        sources: [Source.jsonData(options.configFileName, siteConfig)],
+        sources: [Source.asset(options.distFolder), Source.jsonData(configFileName, siteConfig)],
         destinationBucket: this.bucket,
         retainOnDelete: false
       })
