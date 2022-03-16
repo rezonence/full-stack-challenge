@@ -10,6 +10,6 @@ export class PollStack extends Stack {
     constructor (scope: Construct, id: string, props: PollStackProps) {
       super(scope, id, props)
       this.websocketApi = new DynamoWebsocketApi(this, `${id}Api`, props)
-      this.polls = new PollsConstruct(this, `${id}Data`)
+      this.polls = new PollsConstruct(this, `${id}Data`, props)
     }
 }

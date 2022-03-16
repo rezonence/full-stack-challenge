@@ -6,7 +6,6 @@ import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { DynamoWebsocketOptions } from './DynamoWebsocketOptions'
 import { tableNameParam } from './tableNameParam'
 import { TableKey } from './TableKey'
-import { defaultTableOptions } from '../defaultTableOptions'
 
 /**
  * Keeps track of websocket connections, based on https://aws.plainenglish.io/setup-api-gateway-websocket-api-with-cdk-c1e58cf3d2be
@@ -22,7 +21,7 @@ export class DynamoWebsocketApi extends Construct {
       super(scope, id)
 
       this.table = new Table(this, `${id}Connections`, {
-        ...defaultTableOptions,
+        ...options.tableOptions,
         partitionKey: { name: TableKey.Sort, type: AttributeType.STRING }
       })
       const environment = {
