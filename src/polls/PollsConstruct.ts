@@ -1,9 +1,9 @@
-import { RemovalPolicy } from 'aws-cdk-lib'
 import { AttributeType, StreamViewType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { StartingPosition } from 'aws-cdk-lib/aws-lambda'
 import { DynamoEventSource } from 'aws-cdk-lib/aws-lambda-event-sources'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { Construct } from 'constructs'
+import { defaultTableOptions } from '../defaultTableOptions'
 import { CountKey } from './CountKey'
 import { PollingTable } from './PollingTable'
 import { PollKey } from './PollKey'
@@ -18,14 +18,14 @@ export class PollsConstruct extends Construct {
       super(scope, id)
       this.tables = {
         [PollingTable.Polls]: new Table(this, `${id}Polls`, {
-          removalPolicy: RemovalPolicy.DESTROY,
+          ...defaultTableOptions,
           partitionKey: {
             name: PollKey.Id,
             type: AttributeType.STRING
           }
         }),
         [PollingTable.Votes]: new Table(this, `${id}Votes`, {
-          removalPolicy: RemovalPolicy.DESTROY,
+          ...defaultTableOptions,
           stream: StreamViewType.NEW_IMAGE,
           sortKey: {
             name: VoteKey.IdentityId,
@@ -37,7 +37,7 @@ export class PollsConstruct extends Construct {
           }
         }),
         [PollingTable.Counts]: new Table(this, `${id}Counts`, {
-          removalPolicy: RemovalPolicy.DESTROY,
+          ...defaultTableOptions,
           sortKey: {
             name: CountKey.Choice,
             type: AttributeType.NUMBER

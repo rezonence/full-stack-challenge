@@ -9,7 +9,8 @@
     "synth": "cdk synth",
     "deploy": "cdk deploy",
     "bootstrap": "cdk bootstrap",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "destroy": "cdk destroy"
   },
   "repository": {
     "type": "git",

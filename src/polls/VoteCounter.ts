@@ -39,6 +39,7 @@ export class VoteCounter {
   toDbUpdate (item: CountItem): DynamoDB.DocumentClient.Update {
     const countKey: keyof CountItem = 'count'
     const countExpression = `:${countKey}`
+    const countNameExpression = `#${countKey}`;
     return {
       TableName: this.tableName,
       Key: {
@@ -48,7 +49,10 @@ export class VoteCounter {
       ExpressionAttributeValues: {
         [countExpression]: item.count
       },
-      UpdateExpression: `add ${countKey} ${countExpression}`
+      ExpressionAttributeNames: {
+        [countNameExpression]: countKey
+      },
+      UpdateExpression: `add ${countNameExpression} ${countExpression}`
     }
   }
 

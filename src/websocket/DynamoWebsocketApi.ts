@@ -5,8 +5,8 @@ import { WebSocketLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integratio
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { DynamoWebsocketOptions } from './DynamoWebsocketOptions'
 import { tableNameParam } from './tableNameParam'
-import { RemovalPolicy } from 'aws-cdk-lib'
 import { TableKey } from './TableKey'
+import { defaultTableOptions } from '../defaultTableOptions'
 
 /**
  * Keeps track of websocket connections, based on https://aws.plainenglish.io/setup-api-gateway-websocket-api-with-cdk-c1e58cf3d2be
@@ -22,7 +22,7 @@ export class DynamoWebsocketApi extends Construct {
       super(scope, id)
 
       this.table = new Table(this, `${id}Connections`, {
-        removalPolicy: RemovalPolicy.DESTROY,
+        ...defaultTableOptions,
         partitionKey: { name: TableKey.Sort, type: AttributeType.STRING }
       })
       const environment = {
