@@ -39,7 +39,7 @@ export class VoteCounter {
   toDbUpdate (item: CountItem): DynamoDB.DocumentClient.Update {
     const countKey: keyof CountItem = 'count'
     const countExpression = `:${countKey}`
-    const countNameExpression = `#${countKey}`;
+    const countNameExpression = `#${countKey}`
     return {
       TableName: this.tableName,
       Key: {
