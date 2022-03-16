@@ -8,7 +8,10 @@
     let polls: Poll[];
     let latestUpdate: PollUpdates;
     pollsDao.subscribe(async (dao) => {
-        polls = await dao.list();
+        polls = [];
+        for await (const items of dao.list()) {
+            polls.push(...items);
+        }
     });
 
     pollUpdates.subscribe((update) => {
