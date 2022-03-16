@@ -11,11 +11,6 @@ import fetch from "node-fetch";
 
 async function build() {
     const outputDir = "./dist";
-    const configFileName = "config.json";
-    const configPath = resolve(outputDir, configFileName);
-    if (existsSync(configPath)) {
-        unlinkSync(configPath);
-    }
     await esbuild
         .build({
             entryPoints: ["./src/poller/index.html"],
@@ -42,11 +37,14 @@ async function build() {
         });
 
         const options = yargs(process.argv.slice(2)).option("dev", {type: "boolean"}).parse();
+        
         if (options.dev) {
             const stackOutputFile = resolve("./stack/stack.json");
             if (!existsSync(stackOutputFile)) {
                 throw new Error("The backend needs to be deployed before starting the demo, please run \"yarn deploy\"");
             }
+            const configFileName = "config.json";
+            const configPath = resolve(outputDir, configFileName);
             const stackFileString = readFileSync(stackOutputFile).toString();
             const stackConfig = JSON.parse(stackFileString);
             const firstStackName = Object.keys(stackConfig).shift();
@@ -56,9 +54,6 @@ async function build() {
             const config = await response.json();
             writeFileSync(configPath, JSON.stringify(config));
         }
-
-
-
 }
 
 build().catch(err => {

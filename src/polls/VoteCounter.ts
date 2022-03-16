@@ -2,8 +2,7 @@ import DynamoDB from 'aws-sdk/clients/dynamodb'
 import { chain } from 'lodash'
 import { CountItem } from './CountItem'
 import { CountKey } from './CountKey'
-import { Vote } from './Vote'
-import { VoteKey } from './VoteKey'
+import { VoteKey, Vote } from '../poller'
 
 /**
  * Responsible for transactionally counting new votes.

@@ -1,4 +1,4 @@
 import { writable } from 'svelte/store'
-import { SiteConfig } from './SiteConfig'
+import type { SiteConfig } from './SiteConfig'
 
 export const siteConfig = writable<SiteConfig>()

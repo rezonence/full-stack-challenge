@@ -8,10 +8,9 @@ import { Construct } from 'constructs'
 import { CountKey } from './CountKey'
 import { endpointVar } from './endpointVar'
 import { PollingTable } from './PollingTable'
-import { PollKey } from './PollKey'
+import { PollKey, VoteKey } from '../poller'
 import { PollsOptions } from './PollsOptions'
 import { toTableNameVar } from './toTableNameVar'
-import { VoteKey } from './VoteKey'
 
 export class PollsConstruct extends Construct {
   public readonly tables: Record<PollingTable, Table>;
