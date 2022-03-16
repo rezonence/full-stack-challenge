@@ -4,7 +4,7 @@
   "description": "Full-stack developer challenge",
   "main": "index.js",
   "scripts": {
-    "build": "node esbuild.mjs",
+    "build": "ts-node esbuild.mjs",
     "lint": "eslint \"src/**/*.ts\"",
     "synth": "cdk synth",
     "deploy": "yarn build && cdk deploy",
