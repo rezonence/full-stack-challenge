@@ -7,13 +7,12 @@ import { Vote } from '../Vote'
 import { VoteCounter } from '../VoteCounter'
 
 const ddb = new DynamoDB.DocumentClient()
-const counter = new VoteCounter(ddb, resolveTableName(PollingTable.Counts) as string);
+const counter = new VoteCounter(ddb, resolveTableName(PollingTable.Counts) as string)
 
 export const handler: DynamoDBStreamHandler = async event => {
   const votes = event.Records
     .filter(r => r.eventName === 'INSERT')
     .map(r => r.dynamodb?.NewImage)
     .map(v => DynamoDB.Converter.unmarshall(v as AttributeMap) as Vote)
-  await counter.count(votes);
-
+  await counter.count(votes)
 }
