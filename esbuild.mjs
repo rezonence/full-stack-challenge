@@ -6,7 +6,7 @@ import { clean } from 'esbuild-plugin-clean';
 import { optimizeImports } from "carbon-preprocess-svelte";
 import yargs from "yargs";
 import {resolve} from "path";
-import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
+import {existsSync, readFileSync, writeFileSync} from "fs";
 import fetch from "node-fetch";
 
 async function build() {
@@ -20,11 +20,13 @@ async function build() {
                 js: "window.global = window;"
             },
             metafile: true,
-            // minify: true,
+            minify: true,
             sourcemap: true,
             sourcesContent: true,
             plugins: [
-                htmlPlugin({}),
+                htmlPlugin({
+                    scriptsTarget: 'es2020'
+                }),
                 esbuildSvelte({
                     preprocess: [sveltePreprocess({
                         typescript: {
