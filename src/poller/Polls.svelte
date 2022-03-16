@@ -22,5 +22,7 @@
 </script>
 
 {#if polls}
-    Found {polls.length} polls;
+    {#each polls as poll}
+        Question: {poll.question}
+    {/each}
 {/if}
