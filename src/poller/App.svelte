@@ -1,12 +1,15 @@
 <script lang="ts">
   import "carbon-components-svelte/css/g10.css";
   import { Loading } from "carbon-components-svelte";
-  import { authenticate } from "./authenticate";
+  import {resolveSiteConfig} from "./resolveSiteConfig";
+  import {siteConfig} from "./siteConfig";
 
   let initialised = false;
   async function start() {
     try {
-      const creds = await authenticate();
+      const config = await resolveSiteConfig();
+      siteConfig.set(config);
+
     } catch (err) {
       console.error(err);
     } finally {

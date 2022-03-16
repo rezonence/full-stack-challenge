@@ -1,4 +1,6 @@
 import { RemovalPolicy } from 'aws-cdk-lib'
+import { Distribution } from 'aws-cdk-lib/aws-cloudfront'
+import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins'
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
 import { Bucket, IBucket } from 'aws-cdk-lib/aws-s3'
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment'
@@ -9,6 +11,7 @@ import { SiteConstructOptions } from './SiteConstructOptions'
 export class SiteConstruct extends Construct {
     public readonly bucket: IBucket;
     public readonly deployment: BucketDeployment;
+    public readonly distribution: Distribution;
 
     constructor (scope: Construct, id: string, options: SiteConstructOptions) {
       super(scope, id)
@@ -27,10 +30,16 @@ export class SiteConstruct extends Construct {
         websocketEndpoint: options.websocketEndpoint,
         identityPoolId: options.identityPool.identityPoolId
       }
+      this.distribution = new Distribution(this, `${id}Distribution`, {
+        defaultBehavior: {
+          origin: new S3Origin(this.bucket)
+        }
+      })
       this.deployment = new BucketDeployment(this, `${id}Deployment`, {
         sources: [Source.asset(options.distFolder), Source.jsonData(configFileName, siteConfig)],
         destinationBucket: this.bucket,
-        retainOnDelete: false
+        retainOnDelete: false,
+        distribution: this.distribution
       })
 
       const unauthenticatedRole = options.identityPool.unauthenticatedRole

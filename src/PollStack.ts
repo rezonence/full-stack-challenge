@@ -33,6 +33,6 @@ export class PollStack extends Stack {
         websocketEndpoint,
         distFolder: resolve(__dirname, '..', 'dist')
       })
-      this.websiteOutput = new CfnOutput(this, 'websiteUrl', { value: this.site.bucket.bucketWebsiteUrl })
+      this.websiteOutput = new CfnOutput(this, 'websiteUrl', { value: `https://${this.site.distribution.domainName}` })
     }
 }
