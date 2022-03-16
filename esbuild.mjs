@@ -1,14 +1,21 @@
 import esbuild from "esbuild";
 import esbuildSvelte from "esbuild-svelte";
 import sveltePreprocess from "svelte-preprocess";
-import alias from "esbuild-plugin-alias";
 import htmlPlugin from '@chialab/esbuild-plugin-html';
 import { clean } from 'esbuild-plugin-clean';
-import { resolve as resolvePath } from "path";
 import { optimizeImports } from "carbon-preprocess-svelte";
+import yargs from "yargs";
+import {resolve} from "path";
+import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
+import fetch from "node-fetch";
 
 async function build() {
     const outputDir = "./dist";
+    const configFileName = "config.json";
+    const configPath = resolve(outputDir, configFileName);
+    if (existsSync(configPath)) {
+        unlinkSync(configPath);
+    }
     await esbuild
         .build({
             entryPoints: ["./src/poller/index.html"],
@@ -33,6 +40,24 @@ async function build() {
                 clean({})
             ],
         });
+
+        const options = yargs(process.argv.slice(2)).option("dev", {type: "boolean"}).parse();
+        if (options.dev) {
+            const stackOutputFile = resolve("./stack/stack.json");
+            if (!existsSync(stackOutputFile)) {
+                throw new Error("The backend needs to be deployed before starting the demo, please run \"yarn deploy\"");
+            }
+            const stackFileString = readFileSync(stackOutputFile).toString();
+            const stackConfig = JSON.parse(stackFileString);
+            const firstStackName = Object.keys(stackConfig).shift();
+            const pollStackConfig = stackConfig[firstStackName];
+            const websiteUrl = pollStackConfig.websiteUrl;
+            const response = await fetch(`${websiteUrl}/${configFileName}`);
+            const config = await response.json();
+            writeFileSync(configPath, JSON.stringify(config));
+        }
+
+
 
 }
 
