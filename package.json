@@ -7,6 +7,8 @@
     "build": "tsc",
     "lint": "eslint \"src/**/*.ts\"",
     "synth": "cdk synth",
+    "deploy": "cdk deploy",
+    "bootstrap": "cdk bootstrap",
     "prepare": "husky install"
   },
   "repository": {
