@@ -24,7 +24,7 @@ export class SiteConstruct extends Construct {
         votesTableName: options.votes.tableName,
         pollsTableName: options.polls.tableName,
         region: options.region,
-        websocketEndpoint: options.websocketApi.apiEndpoint,
+        websocketEndpoint: options.websocketEndpoint,
         identityPoolId: options.identityPool.identityPoolId
       }
       this.deployment = new BucketDeployment(this, `${id}Deployment`, {
