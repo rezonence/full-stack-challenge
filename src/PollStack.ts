@@ -14,8 +14,14 @@ export class PollStack extends Stack {
     constructor (scope: Construct, id: string, props: PollStackProps) {
       super(scope, id, props)
       this.websocketApi = new DynamoWebsocketApi(this, `${id}Api`, props)
-      const websocketEndpoint = `${this.websocketApi.api.apiEndpoint}/${props.stage}`
-      this.polls = new PollsConstruct(this, `${id}Data`, { ...props, websocketEndpoint })
+      const websocketEndpoint = this.websocketApi.websocketEndpoint
+      this.polls = new PollsConstruct(this, `${id}Data`, {
+        ...props,
+        connectionsTable: this.websocketApi.table,
+        websocket: this.websocketApi,
+        region: this.region,
+        accountId: this.account
+      })
       this.authentication = new AuthenticationConstruct(this, `${id}Auth`)
       this.site = new SiteConstruct(this, `${id}Site`, {
         identityPool: this.authentication.identityPool,

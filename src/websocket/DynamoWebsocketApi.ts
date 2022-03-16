@@ -17,7 +17,7 @@ export class DynamoWebsocketApi extends Construct {
     public readonly stage: WebSocketStage;
     public readonly table: Table;
 
-    constructor (scope: Construct, id: string, options: DynamoWebsocketOptions) {
+    constructor (scope: Construct, id: string, private options: DynamoWebsocketOptions) {
       super(scope, id)
 
       this.table = new Table(this, `${id}Connections`, {
@@ -46,5 +46,9 @@ export class DynamoWebsocketApi extends Construct {
         stageName: options.stage,
         autoDeploy: true
       })
+    }
+
+    get websocketEndpoint (): string {
+      return `${this.api.apiEndpoint}/${this.options.stage}`
     }
 }

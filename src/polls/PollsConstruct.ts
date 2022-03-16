@@ -1,5 +1,6 @@
 import { Duration } from 'aws-cdk-lib'
 import { AttributeType, StreamViewType, Table, TableOptions } from 'aws-cdk-lib/aws-dynamodb'
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
 import { StartingPosition } from 'aws-cdk-lib/aws-lambda'
 import { DynamoEventSource } from 'aws-cdk-lib/aws-lambda-event-sources'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
@@ -41,11 +42,11 @@ export class PollsConstruct extends Construct {
     const countsTable = this.tables[PollingTable.Counts]
     countsTable.grantReadWriteData(this.counter)
 
-    this.broadcaster = new NodejsFunction(this, id + 'Broadcaster', {
+    this.broadcaster = new NodejsFunction(this, `${id}Broadcaster`, {
       entry: require.resolve('./broadcaster/handler'),
       environment: {
         ...environment,
-        [endpointVar]: options.websocketEndpoint
+        [endpointVar]: options.websocket.websocketEndpoint
       },
       timeout: Duration.minutes(5)
     })
@@ -54,6 +55,16 @@ export class PollsConstruct extends Construct {
       bisectBatchOnError: true,
       batchSize: 1000,
       startingPosition: StartingPosition.TRIM_HORIZON
+    }))
+    options.connectionsTable.grantReadWriteData(this.broadcaster)
+    this.broadcaster.addToRolePolicy(new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: [
+        'execute-api:ManageConnections'
+      ],
+      resources: [
+        `arn:aws:execute-api:${options.region}:${options.accountId}:${options.websocket.api.apiId}/*`
+      ]
     }))
   }
 
