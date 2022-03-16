@@ -12,6 +12,11 @@
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-apigatewayv2-integrations-alpha/-/aws-apigatewayv2-integrations-alpha-2.16.0-alpha.0.tgz#6304d5fcd09217f22c914935f08a126afca2c24d"
   integrity sha512-t5lCazYbcxayej3CMkLGx/EE/a8GMNgGwSfDuCe2NT2Q14FIEt4fSU/bybIXsCigf+bU7qcscqsYUSDonNuJSg==
 
+"@aws-cdk/aws-cognito-identitypool-alpha@^2.16.0-alpha.0":
+  version "2.16.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cognito-identitypool-alpha/-/aws-cognito-identitypool-alpha-2.16.0-alpha.0.tgz#3843565f0519cbf263a5f9a082d2d66dccbbb5cb"
+  integrity sha512-sZSwmHKEqCtrsE/gzg5jORyonICHH8pGA0Z5XPFAqTm9VpgnZjhi4nI0o2P4R/E1+Gt8qx1Cw7Fnp/HawlWmQQ==
+
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
