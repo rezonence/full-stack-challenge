@@ -3,4 +3,5 @@ export interface SiteConfig {
     votesTableName: string;
     pollsTableName: string;
     region: string;
+    websocketEndpoint: string;
 }

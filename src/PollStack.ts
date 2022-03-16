@@ -21,7 +21,8 @@ export class PollStack extends Stack {
         votes: this.polls.tables.Votes,
         polls: this.polls.tables.Polls,
         region: this.region,
-        configFileName: 'config.json'
+        configFileName: 'config.json',
+        websocketApi: this.websocketApi.api
       })
     }
 }
