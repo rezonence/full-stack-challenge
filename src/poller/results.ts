@@ -1,10 +1,10 @@
 import { derived, type Readable } from 'svelte/store'
 import type { PollUpdates } from './PollUpdates'
 import type { SiteConfig } from './SiteConfig'
-import { siteConfig } from './siteConfig'
+import { config } from './config'
 
-export const pollUpdates = derived<Readable<SiteConfig>, PollUpdates>(siteConfig, (config, set) => {
-  const socket = new WebSocket(config.websocketEndpoint)
+export const results = derived<Readable<SiteConfig>, PollUpdates>(config, (value, set) => {
+  const socket = new WebSocket(value.websocketEndpoint)
   socket.addEventListener('open', () => {
     console.log('Socket open')
   })

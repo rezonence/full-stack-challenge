@@ -3,7 +3,7 @@
 
     import { pollsDao } from "./pollsDao";
     import type { PollUpdates } from "./PollUpdates";
-    import { pollUpdates } from "./pollUpdates";
+    import { results } from "./results";
 
     let polls: Poll[];
     let latestUpdate: PollUpdates;
@@ -14,7 +14,7 @@
         }
     });
 
-    pollUpdates.subscribe((update) => {
+    results.subscribe((update) => {
         latestUpdate = update;
         console.log(update);
     });

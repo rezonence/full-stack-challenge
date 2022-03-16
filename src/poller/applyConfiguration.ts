@@ -1,7 +1,7 @@
 import { resolveSiteConfig } from './resolveSiteConfig'
-import { siteConfig } from './siteConfig'
+import { config } from './config'
 
 export async function applyConfiguration () {
-  const config = await resolveSiteConfig()
-  siteConfig.set(config)
+  const siteConfig = await resolveSiteConfig()
+  config.set(siteConfig)
 }
