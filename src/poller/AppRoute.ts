@@ -1,5 +1,5 @@
 export enum AppRoute {
-    Polls = "polls",
-    Poll = "poll",
-    Vote = "vote"
+    Polls = 'polls',
+    Poll = 'poll',
+    Vote = 'vote'
 }

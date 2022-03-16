@@ -1,3 +1,3 @@
 export enum RouteParam {
-    Id = "id"
+    Id = 'id'
 }
