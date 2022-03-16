@@ -1,11 +1,19 @@
-
 <script lang="ts">
-import type { Poll } from "./Poll";
+    import type { Poll } from "./Poll";
 
-    import {pollsDao} from "./pollsDao";
+    import { pollsDao } from "./pollsDao";
+    import type { PollUpdates } from "./PollUpdates";
+    import { pollUpdates } from "./pollUpdates";
+
     let polls: Poll[];
-    pollsDao.subscribe(async dao => {
+    let latestUpdate: PollUpdates;
+    pollsDao.subscribe(async (dao) => {
         polls = await dao.list();
+    });
+
+    pollUpdates.subscribe((update) => {
+        latestUpdate = update;
+        console.log(update);
     });
 </script>
 
