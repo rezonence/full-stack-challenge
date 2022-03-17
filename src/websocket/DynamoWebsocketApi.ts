@@ -22,7 +22,7 @@ export class DynamoWebsocketApi extends Construct {
 
       this.table = new Table(this, `${id}Connections`, {
         ...options.tableOptions,
-        partitionKey: { name: TableKey.Sort, type: AttributeType.STRING }
+        partitionKey: { name: TableKey.ConnectionId, type: AttributeType.STRING }
       })
       const environment = {
         [tableNameParam]: this.table.tableName

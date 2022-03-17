@@ -78,11 +78,11 @@ export class PollsConstruct extends Construct {
       [PollingTable.Votes]: new Table(this, `${baseId}Votes`, {
         ...tableOptions,
         stream: StreamViewType.NEW_IMAGE,
-        sortKey: {
+        partitionKey: {
           name: VoteKey.IdentityId,
           type: AttributeType.STRING
         },
-        partitionKey: {
+        sortKey: {
           name: VoteKey.PollId,
           type: AttributeType.STRING
         }

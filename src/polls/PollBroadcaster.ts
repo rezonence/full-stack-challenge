@@ -23,7 +23,7 @@ export class PollBroadcaster {
   }
 
   toConnectionIds (items: DynamoDB.DocumentClient.ItemList | undefined): string[] {
-    return (items || []).map(item => item[TableKey.Sort] as string)
+    return (items || []).map(item => item[TableKey.ConnectionId] as string)
   }
 
   async broadcastToConnections (connectionIds: string[], updates: PollUpdates[]) {
@@ -31,7 +31,7 @@ export class PollBroadcaster {
   }
 
   async prune (connectionId: string): Promise<void> {
-    await this.db.delete({ TableName: this.tableName, Key: { [TableKey.Sort]: connectionId } }).promise()
+    await this.db.delete({ TableName: this.tableName, Key: { [TableKey.ConnectionId]: connectionId } }).promise()
   }
 
   async broadcastToConnection (connectionId: string, updates: PollUpdates[]) {
