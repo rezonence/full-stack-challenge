@@ -1,11 +1,10 @@
 <script lang="ts">
   import { identityId } from "./identityId";
-  import { Loading } from "carbon-components-svelte";
   import type { Vote } from "./Vote";
   import { votesDao } from "./votesDao";
   import { pollsDao } from "./pollsDao";
   import type { Poll } from "./Poll";
-  import { TileGroup, RadioTile, Button, Tile } from "carbon-components-svelte";
+  import { TileGroup, RadioTile, Button, Tile, Loading } from "carbon-components-svelte";
 import type { VoteDao } from "./VoteDao";
   export let pollId: string;
   let selected: string;

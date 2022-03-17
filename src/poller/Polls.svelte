@@ -4,7 +4,7 @@
     import { pollsDao } from "./pollsDao";
     import type { PollUpdates } from "./PollUpdates";
     import { results } from "./results";
-
+    import PollChart from "./PollChart.svelte";
     let pollsPromise: Promise<Poll[]>;
     let latestUpdate: PollUpdates;
     
@@ -16,7 +16,7 @@
     <Loading/>
 {:then polls}
     {#each polls as poll}
-        Question: {poll.question}
+        <PollChart poll={poll}></PollChart>
     {/each}
 {:catch error}
     <p>{error.message}</p>

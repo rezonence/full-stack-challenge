@@ -5,7 +5,7 @@
   import Router from "svelte-navigator/src/Router.svelte";
   import Route from "svelte-navigator/src/Route.svelte";
   import Polls from "./Polls.svelte";
-  import Poll from "./Poll.svelte";
+  import Poll from "./PollChart.svelte";
   import Vote from "./Vote.svelte";
   import { AppRoute } from "./AppRoute";
   import { RouteParam } from "./RouteParam";

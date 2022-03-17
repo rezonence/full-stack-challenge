@@ -5,7 +5,7 @@ import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
 import { Bucket, IBucket } from 'aws-cdk-lib/aws-s3'
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment'
 import { Construct } from 'constructs'
-import { configFileName, SiteConfig } from '../poller'
+import { configFileName, PollingTable, SiteConfig } from '../poller'
 import { SiteConstructOptions } from './SiteConstructOptions'
 
 export class SiteConstruct extends Construct {
@@ -23,9 +23,13 @@ export class SiteConstruct extends Construct {
         removalPolicy: RemovalPolicy.DESTROY
       })
 
+      const tableNames = Object.keys(options.tables).reduce((names, tableName) => ({
+        ...names,
+        [tableName]: options.tables[tableName as PollingTable].tableName
+      }), {} as Record<PollingTable, string>);
+
       const siteConfig: SiteConfig = {
-        votesTableName: options.tables.Votes.tableName,
-        pollsTableName: options.tables.Polls.tableName,
+        tableNames,
         region: options.region,
         websocketEndpoint: options.websocketEndpoint,
         identityPoolId: options.identityPool.identityPoolId
@@ -53,7 +57,7 @@ export class SiteConstruct extends Construct {
           'dynamodb:PutItem',
           'dynamodb:DeleteItem'
         ],
-        resources: [options.tables.Votes.tableArn],
+        resources: [options.tables.Votes.tableArn, `${options.tables.Votes.tableArn}/*`],
         conditions: {
           'ForAllValues:StringEquals': {
             'dynamodb:LeadingKeys': ['${cognito-identity.amazonaws.com:sub}']
