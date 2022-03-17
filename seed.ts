@@ -12,7 +12,7 @@ async function seed () {
   const db = DynamoDBDocument.from(new DynamoDBClient({
     region: config.region
   }))
-  const pollDao = new Dao<Record<PollKey, string>, Poll>(db, config.pollsTableName)
+  const pollDao = new Dao<Record<PollKey, string>, Poll>(db, config.tableNames.Polls)
   const polls: Poll[] = [
     {
       id: 'foo',
