@@ -1,2 +1,2 @@
 export * from './PollsConstruct'
-export * from "./PollingTable"
+export * from './PollingTable'
