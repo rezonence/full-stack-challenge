@@ -47,14 +47,16 @@ async function build() {
             }
             const configFileName = "config.json";
             const configPath = resolve(outputDir, configFileName);
-            const stackFileString = readFileSync(stackOutputFile).toString();
-            const stackConfig = JSON.parse(stackFileString);
-            const firstStackName = Object.keys(stackConfig).shift();
-            const pollStackConfig = stackConfig[firstStackName];
-            const websiteUrl = pollStackConfig.websiteUrl;
-            const response = await fetch(`${websiteUrl}/${configFileName}`);
-            const config = await response.json();
-            writeFileSync(configPath, JSON.stringify(config));
+            if (!existsSync(configPath)) {
+                const stackFileString = readFileSync(stackOutputFile).toString();
+                const stackConfig = JSON.parse(stackFileString);
+                const firstStackName = Object.keys(stackConfig).shift();
+                const pollStackConfig = stackConfig[firstStackName];
+                const websiteUrl = pollStackConfig.websiteUrl;
+                const response = await fetch(`${websiteUrl}/${configFileName}`);
+                const config = await response.json();
+                writeFileSync(configPath, JSON.stringify(config));
+            }
         }
 }
 
