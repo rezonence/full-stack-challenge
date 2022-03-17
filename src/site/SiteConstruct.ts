@@ -56,9 +56,7 @@ export class SiteConstruct extends Construct {
         resources: [options.tables.Votes.tableArn],
         conditions: {
           'ForAllValues:StringEquals': {
-            'dynamodb:LeadingKeys': [
-              '${cognito-identity.amazonaws.com:sub}'
-            ]
+            'dynamodb:LeadingKeys': ['${cognito-identity.amazonaws.com:sub}']
           }
         }
       }))

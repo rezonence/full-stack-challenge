@@ -12,7 +12,9 @@
 </script>
 
 My vote for {pollId}
-
+<p>
+    {$identityId}
+</p>
 {#await votePromise}
     <Loading />
 {:then vote}
