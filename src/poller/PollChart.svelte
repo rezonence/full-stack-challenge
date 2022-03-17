@@ -9,24 +9,30 @@
     import { BarChartSimple } from "@carbon/charts-svelte";
     import "@carbon/charts/styles.min.css";
     import "carbon-components/css/carbon-components.min.css";
+    import {countsDao} from "./countsDao";
+    import {results} from "./results";
     import type { Poll } from "./Poll";
+    import type { CountItem } from "./CountItem";
     export let poll: Poll;
-</script>
 
+    let countsPromise: Promise<CountItem[]>;
+    $: countsPromise = $countsDao.findForPollId(poll.id);
+    function toChartData(countItems: CountItem[]): {group: string, value: number}[] {
+        return poll.answers.map((answer, index) => ({ value: countItems.find(c => c.choice === index)?.count, group: answer}));
+    }
+    
+</script>
+{#await countsPromise}
+    <Loading></Loading> 
+{:then countItems}
 <Tile>
     <h4>{poll.question}</h4>
 </Tile>
 <Tile>
     <BarChartSimple
-    data={[
-        { group: "Qty", value: 65000 },
-        { group: "More", value: 29123 },
-        { group: "Sold", value: 35213 },
-        { group: "Restocking", value: 51213 },
-        { group: "Misc", value: 16932 },
-    ]}
+    data={toChartData(countItems)}
     options={{
-        title: "Simple bar (discrete)",
+        // title: "Simple bar (discrete)",
         height: "400px",
         axes: {
             left: { mapsTo: "value" },
@@ -35,4 +41,6 @@
     }}
 />
 </Tile>
+{/await}
+
 

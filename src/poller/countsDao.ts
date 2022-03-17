@@ -1,8 +1,6 @@
 import { derived } from 'svelte/store'
 import { config } from './config'
-import type { CountItem } from './CountItem'
-import type { CountItemKey } from './CountItemKey'
-import { Dao } from './Dao'
+import { CountDao } from './CountDao'
 import { dynamoClient } from './dynamoClient'
 
-export const countsDao = derived([dynamoClient, config], (values) => new Dao<CountItemKey, CountItem>(values[0], values[1].tableNames.Counts))
+export const countsDao = derived([dynamoClient, config], (values) => new CountDao(values[0], values[1].tableNames.Counts))

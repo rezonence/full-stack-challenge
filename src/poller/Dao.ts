@@ -1,7 +1,7 @@
 import { type DynamoDBDocumentClient, PutCommand, GetCommand, DeleteCommand, paginateScan } from '@aws-sdk/lib-dynamodb'
 
 export class Dao<K, V extends K> {
-  constructor (private db: DynamoDBDocumentClient, private tableName: string) {
+  constructor (protected readonly db: DynamoDBDocumentClient, protected readonly tableName: string) {
   }
 
   async * list (pageSize: number = 25): AsyncIterable<V[]> {
@@ -14,10 +14,10 @@ export class Dao<K, V extends K> {
     }
   }
 
-  async collect<T> (iterable: AsyncIterable<T>): Promise<T[]> {
-    const output = []
+  async collect<T, O> (iterable: AsyncIterable<T>, mapper: (i: T) => O): Promise<O[]> {
+    const output: O[] = []
     for await (const v of iterable) {
-      output.push(v)
+      output.push(mapper(v))
     }
     return output
   }
@@ -27,7 +27,7 @@ export class Dao<K, V extends K> {
   }
 
   async listAll (pageSize?: number): Promise<V[]> {
-    const values = await this.collect(this.list(pageSize))
+    const values = await this.collect(this.list(pageSize), v => v)
     return this.flatten(values)
   }
 

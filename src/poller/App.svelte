@@ -5,7 +5,6 @@
   import Router from "svelte-navigator/src/Router.svelte";
   import Route from "svelte-navigator/src/Route.svelte";
   import Polls from "./Polls.svelte";
-  import Poll from "./PollChart.svelte";
   import Vote from "./Vote.svelte";
   import { AppRoute } from "./AppRoute";
   import { RouteParam } from "./RouteParam";
@@ -28,9 +27,6 @@
   <Router>
     <Route path="/">
       <Polls />
-    </Route>
-    <Route path="{AppRoute.Poll}/:{RouteParam.Id}" let:params>
-      <Poll pollId="{params[RouteParam.Id]}"/>
     </Route>
     <Route path="{AppRoute.Vote}/:{RouteParam.Id}" let:params>
       <Vote pollId="{params[RouteParam.Id]}"/>
