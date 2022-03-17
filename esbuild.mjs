@@ -20,7 +20,7 @@ async function build () {
         js: 'window.global = window;'
       },
       metafile: true,
-      minify: true,
+      // minify: true,
       sourcemap: true,
       sourcesContent: true,
       plugins: [

@@ -90,13 +90,13 @@ export class PollsConstruct extends Construct {
       [PollingTable.Counts]: new Table(this, `${baseId}Counts`, {
         ...tableOptions,
         stream: StreamViewType.NEW_IMAGE,
-        sortKey: {
-          name: CountKey.Choice,
-          type: AttributeType.NUMBER
-        },
         partitionKey: {
           name: CountKey.PollId,
           type: AttributeType.STRING
+        },
+        sortKey: {
+          name: CountKey.Choice,
+          type: AttributeType.NUMBER
         }
       })
     }

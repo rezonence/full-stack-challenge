@@ -24,7 +24,6 @@ async function seed () {
       ]
     }
   ]
-  console.log('Seeding database with polls:', polls)
   for (const poll of polls) {
     await pollDao.put(poll)
   }
