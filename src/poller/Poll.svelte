@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { useParams } from "svelte-navigator";
-    import { RouteParam } from "./RouteParam";
-    const params = useParams();
+    export let pollId: string;
 </script>
 
-Poll {$params[RouteParam.Id]}
+Poll {pollId}
