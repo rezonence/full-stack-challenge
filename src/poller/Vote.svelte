@@ -29,16 +29,20 @@ import type { VoteDao } from "./VoteDao";
   <Loading />
 {:then poll}
 <Tile>
+    <h4>{poll.question}</h4>
+</Tile>
+<Tile>
     <TileGroup bind:selected>
         {#each poll.answers as answer, index}
           <RadioTile value={index + ""}>{answer}</RadioTile>
         {/each}
       </TileGroup>
-      <Button on:click={() => vote($votesDao, {choice: parseInt(selected), identityId: $identityId, pollId: poll.id})} disabled={!selected}>
+</Tile>
+<Tile>
+    <Button on:click={() => vote($votesDao, {choice: parseInt(selected), identityId: $identityId, pollId: poll.id})} disabled={!selected}>
         Vote
       </Button>
 </Tile>
-
 
   <!-- {#await votePromise}
     <Loading />

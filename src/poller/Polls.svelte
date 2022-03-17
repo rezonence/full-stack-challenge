@@ -13,7 +13,7 @@
 </script>
 
 {#await pollsPromise}
-    <Loading></Loading>
+    <Loading/>
 {:then polls}
     {#each polls as poll}
         Question: {poll.question}
