@@ -5,8 +5,11 @@
   import { votesDao } from "./votesDao";
   import { pollsDao } from "./pollsDao";
   import type { Poll } from "./Poll";
-  import { TileGroup, RadioTile } from "carbon-components-svelte";
+  import { TileGroup, RadioTile, Button, Tile } from "carbon-components-svelte";
+import type { VoteDao } from "./VoteDao";
   export let pollId: string;
+  let selected: string;
+
   let votePromise: Promise<Vote>;
   let pollPromise: Promise<Poll>;
   $: votePromise = $votesDao.getValue({
@@ -16,18 +19,27 @@
   $: pollPromise = $pollsDao.getValue({
     id: pollId,
   });
-</script>
 
-My vote for {pollId}
+  async function vote(dao: VoteDao, vote: Vote) {
+    await dao.put(vote);
+  }
+</script>
 
 {#await pollPromise}
   <Loading />
 {:then poll}
-    <TileGroup legend="{poll.question}">
+<Tile>
+    <TileGroup bind:selected>
         {#each poll.answers as answer, index}
-            <RadioTile value={index + ""}>{answer}</RadioTile>
+          <RadioTile value={index + ""}>{answer}</RadioTile>
         {/each}
-    </TileGroup>
+      </TileGroup>
+      <Button on:click={() => vote($votesDao, {choice: parseInt(selected), identityId: $identityId, pollId: poll.id})} disabled={!selected}>
+        Vote
+      </Button>
+</Tile>
+
+
   <!-- {#await votePromise}
     <Loading />
   {:then vote}
