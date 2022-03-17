@@ -26,14 +26,14 @@
 
 {#if initialised}
   <Router>
+    <Route path="/">
+      <Polls />
+    </Route>
     <Route path="{AppRoute.Poll}/:{RouteParam.Id}" let:params>
       <Poll pollId="{params[RouteParam.Id]}"/>
     </Route>
     <Route path="{AppRoute.Vote}/:{RouteParam.Id}" let:params>
       <Vote pollId="{params[RouteParam.Id]}"/>
-    </Route>
-    <Route path="/">
-      <Polls />
     </Route>
   </Router>
 {:else}

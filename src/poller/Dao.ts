@@ -14,6 +14,23 @@ export class Dao<K, V extends K> {
     }
   }
 
+  async collect<T>(iterable: AsyncIterable<T>): Promise<T[]> {
+    const output = [];
+    for await (const v of iterable) {
+      output.push(v);
+    }
+    return output;
+  }
+
+  flatten<T>(input: T[][]): T[] {
+    return input.reduce((collection, values) => [...collection, ...values], []);
+  }
+
+  async listAll(pageSize?: number): Promise<V[]> {
+    const values = await this.collect(this.list(pageSize));
+    return this.flatten(values);
+  }
+
   async put (value: V): Promise<void> {
     await this.db.send(new PutCommand({
       TableName: this.tableName,
