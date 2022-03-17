@@ -1,10 +1,10 @@
 import { IdentityPool } from '@aws-cdk/aws-cognito-identitypool-alpha'
 import { Table } from 'aws-cdk-lib/aws-dynamodb'
+import { PollingTable } from '../polls';
 
 export interface SiteConstructOptions {
     identityPool: IdentityPool;
-    votes: Table;
-    polls: Table;
+    tables: Record<PollingTable, Table>
     region: string;
     websocketEndpoint: string;
     distFolder: string;

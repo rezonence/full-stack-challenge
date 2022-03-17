@@ -1,12 +1,12 @@
 import { DynamoDBStreamHandler, StreamRecord } from 'aws-lambda'
 import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk'
 import { AttributeMap } from 'aws-sdk/clients/dynamodb'
-import { CountItem } from '../CountItem'
 import { PollBroadcaster } from '../PollBroadcaster'
 import { PollingTable } from '../PollingTable'
 import { resolveEndpoint } from '../resolveEndpoint'
 import { resolveTableName } from '../resolveTableName'
 import { orderBy, uniqBy } from 'lodash'
+import { CountItem } from '../../poller'
 
 const ddb = new DynamoDB.DocumentClient()
 const api = new ApiGatewayManagementApi({

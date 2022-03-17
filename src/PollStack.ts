@@ -27,8 +27,7 @@ export class PollStack extends Stack {
       this.authentication = new AuthenticationConstruct(this, `${id}Auth`)
       this.site = new SiteConstruct(this, `${id}Site`, {
         identityPool: this.authentication.identityPool,
-        votes: this.polls.tables.Votes,
-        polls: this.polls.tables.Polls,
+        tables: this.polls.tables,
         region: this.region,
         websocketEndpoint,
         distFolder: resolve(__dirname, '..', 'dist')

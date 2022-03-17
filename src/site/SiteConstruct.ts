@@ -24,8 +24,8 @@ export class SiteConstruct extends Construct {
       })
 
       const siteConfig: SiteConfig = {
-        votesTableName: options.votes.tableName,
-        pollsTableName: options.polls.tableName,
+        votesTableName: options.tables.Votes.tableName,
+        pollsTableName: options.tables.Polls.tableName,
         region: options.region,
         websocketEndpoint: options.websocketEndpoint,
         identityPoolId: options.identityPool.identityPoolId
@@ -42,9 +42,10 @@ export class SiteConstruct extends Construct {
         distribution: this.distribution
       })
 
-      const unauthenticatedRole = options.identityPool.unauthenticatedRole
-      options.polls.grantReadData(unauthenticatedRole)
-      unauthenticatedRole.addToPrincipalPolicy(new PolicyStatement({
+      const role = options.identityPool.unauthenticatedRole
+      options.tables.Polls.grantReadData(role)
+      options.tables.Counts.grantReadData(role)
+      role.addToPrincipalPolicy(new PolicyStatement({
         effect: Effect.ALLOW,
         actions: [
           'dynamodb:GetItem',
@@ -52,7 +53,7 @@ export class SiteConstruct extends Construct {
           'dynamodb:PutItem',
           'dynamodb:DeleteItem'
         ],
-        resources: [options.votes.tableArn],
+        resources: [options.tables.Votes.tableArn],
         conditions: {
           'ForAllValues:StringEquals': {
             'dynamodb:LeadingKeys': [

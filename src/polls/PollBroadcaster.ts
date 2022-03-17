@@ -1,8 +1,6 @@
 import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk'
 import { chain } from 'lodash'
-import { CountItem } from './CountItem'
-import { PollUpdates } from '../poller'
-import { CountKey } from './CountKey'
+import { CountItem, CountKey, PollUpdates } from '../poller'
 import { TableKey } from '../websocket'
 
 export class PollBroadcaster {
