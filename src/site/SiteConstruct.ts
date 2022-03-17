@@ -26,7 +26,7 @@ export class SiteConstruct extends Construct {
       const tableNames = Object.keys(options.tables).reduce((names, tableName) => ({
         ...names,
         [tableName]: options.tables[tableName as PollingTable].tableName
-      }), {} as Record<PollingTable, string>);
+      }), {} as Record<PollingTable, string>)
 
       const siteConfig: SiteConfig = {
         tableNames,

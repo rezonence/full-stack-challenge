@@ -1,4 +1,4 @@
-import type { PollingTable } from "./PollingTable";
+import type { PollingTable } from './PollingTable'
 
 export interface SiteConfig {
     identityPoolId: string;

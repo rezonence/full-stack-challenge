@@ -8,4 +8,4 @@ export * from './PollUpdates'
 export * from './CountItem'
 export * from './CountKey'
 export * from './CountItemKey'
-export * from "./PollingTable"
+export * from './PollingTable'
