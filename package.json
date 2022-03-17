@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "build": "node esbuild.mjs",
-    "lint": "eslint \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.ts\" \"*.ts\" \"*.mjs\"",
     "synth": "cdk synth",
-    "deploy": "yarn build && cdk deploy --outputs-file ./stack/stack.json",
+    "deploy": "yarn build && cdk deploy --outputs-file ./stack/stack.json && yarn seed",
     "start": "yarn build --dev && superstatic dist",
     "bootstrap": "cdk bootstrap",
     "prepare": "husky install",
-    "destroy": "cdk destroy"
+    "destroy": "cdk destroy",
+    "seed": "ts-node seed.ts"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,7 @@
     "eslint-plugin-promise": "^5.2.0",
     "husky": "^7.0.4",
     "node-fetch": "^3.2.3",
+    "node-fetch-commonjs": "^3.1.1",
     "superstatic": "~7.1.0",
     "svelte-preprocess": "^4.10.4",
     "ts-node": "^10.7.0",
