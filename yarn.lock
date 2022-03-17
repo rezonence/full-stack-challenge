@@ -4870,6 +4870,11 @@ svelte-preprocess@^4.10.4, svelte-preprocess@^4.7.3:
     sorcery "^0.10.0"
     strip-indent "^3.0.0"
 
+svelte-qrcode@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svelte-qrcode/-/svelte-qrcode-1.0.0.tgz#4fd219ae20ccaecb91ba9727a2aaf3a0163b251d"
+  integrity sha512-WrOvyyxtUzu32gVIDxcFMy0A7uUpbl/8yHaTNOsUaI8W5V4wa7AmReCjffhNY2aS42CqCLJ6qdwUoj/KxmeZzA==
+
 svelte2tsx@^0.1.151:
   version "0.1.193"
   resolved "https://registry.yarnpkg.com/svelte2tsx/-/svelte2tsx-0.1.193.tgz#16fe594898ef455e4f715ac317d219c9c757656b"

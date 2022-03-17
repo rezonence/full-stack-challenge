@@ -72,6 +72,7 @@
     "lodash": "^4.17.21",
     "svelte": "^3.46.4",
     "svelte-navigator": "^3.1.5",
+    "svelte-qrcode": "^1.0.0",
     "tslib": "^2.3.1"
   }
 }

@@ -4,8 +4,14 @@
   import { votesDao } from "./votesDao";
   import { pollsDao } from "./pollsDao";
   import type { Poll } from "./Poll";
-  import { TileGroup, RadioTile, Button, Tile, Loading } from "carbon-components-svelte";
-import type { VoteDao } from "./VoteDao";
+  import {
+    TileGroup,
+    RadioTile,
+    Button,
+    Tile,
+    Loading,
+  } from "carbon-components-svelte";
+  import type { VoteDao } from "./VoteDao";
   export let pollId: string;
   let selected: string;
 
@@ -27,21 +33,29 @@ import type { VoteDao } from "./VoteDao";
 {#await pollPromise}
   <Loading />
 {:then poll}
-<Tile>
+  <Tile>
     <h4>{poll.question}</h4>
-</Tile>
-<Tile>
+  </Tile>
+  <Tile>
     <TileGroup bind:selected>
-        {#each poll.answers as answer, index}
-          <RadioTile value={index + ""}>{answer}</RadioTile>
-        {/each}
-      </TileGroup>
-</Tile>
-<Tile>
-    <Button on:click={() => vote($votesDao, {choice: parseInt(selected), identityId: $identityId, pollId: poll.id})} disabled={!selected}>
-        Vote
-      </Button>
-</Tile>
+      {#each poll.answers as answer, index}
+        <RadioTile value={index + ""}>{answer}</RadioTile>
+      {/each}
+    </TileGroup>
+  </Tile>
+  <Tile>
+    <Button
+      on:click={() =>
+        vote($votesDao, {
+          choice: parseInt(selected),
+          identityId: $identityId,
+          pollId: poll.id,
+        })}
+      disabled={!selected}
+    >
+      Vote
+    </Button>
+  </Tile>
 
   <!-- {#await votePromise}
     <Loading />
