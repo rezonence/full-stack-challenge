@@ -11,6 +11,9 @@ import { PollsOptions } from './PollsOptions'
 import { toTableNameVar } from './toTableNameVar'
 import { connectionsTableVar } from './connectionsTableVar'
 
+/**
+ * Defines the infrastructure related to counting votes and broadcasting results
+ */
 export class PollsConstruct extends Construct {
   public readonly tables: Record<PollingTable, Table>;
   public readonly counter: NodejsFunction;
@@ -81,6 +84,7 @@ export class PollsConstruct extends Construct {
       }),
       [PollingTable.Votes]: new Table(this, `${baseId}Votes`, {
         ...tableOptions,
+        // Hint: you might need more than just snapshots of the new values in order to properly count vote changes
         stream: StreamViewType.NEW_IMAGE,
         partitionKey: {
           name: VoteKey.IdentityId,
