@@ -34,9 +34,10 @@ Your challenge is to **enable the voter to change their answer**. This requires 
 ## Previewing changes
 1. Start the demo in dev mode using: `yarn start`
 2. Browse to the link shown in the console or the URL displayed by your Github Codespace
-3. Scanning the QR code in this scenario will only work via Github Codespaces (or if you set up an alternative tunnel via e.g. [ngrok](https://ngrok.com/))
-4. You can open the voting link in a private window if you need to submit a fresh vote
-5. You'll need to re-deploy the backend to observe any changes to it using `yarn deploy` 
+3. Make sure that the forwarded port is [public](https://docs.github.com/en/codespaces/developing-in-codespaces/forwarding-ports-in-your-codespace#sharing-a-port) if you're using Github Codespaces to allow the QR code link to work on another device
+4. Scanning the QR code in this scenario will only work via Github Codespaces (or if you set up an alternative tunnel via e.g. [ngrok](https://ngrok.com/))
+5. You can open the voting link in a private window if you need to submit a fresh vote
+6. You'll need to re-deploy the backend to observe any changes to it using `yarn deploy` 
 
 ## Help
 Please feel free to [submit an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) if you find a bug or contact [@jabrythehutt](https://github.com/jabrythehutt) directly for any questions related to the challenge.
