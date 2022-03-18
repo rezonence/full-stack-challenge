@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rezonence/mach-challenge.git"
+    "url": "git+https://github.com/rezonence/full-stack-challenge.git"
   },
   "author": "Daniel Jabry <daniel.jabry@rezonence.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rezonence/mach-challenge/issues"
+    "url": "https://github.com/rezonence/full-stack-challenge/issues"
   },
-  "homepage": "https://github.com/rezonence/mach-challenge#readme",
+  "homepage": "https://github.com/rezonence/full-stack-challenge#readme",
   "devDependencies": {
     "@aws-cdk/aws-apigatewayv2-alpha": "^2.17.0-alpha.0",
     "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.17.0-alpha.0",
