@@ -7,10 +7,12 @@
 4. Bootstrap the AWS CDK to allow it to deploy the stack to your account: `yarn bootstrap`
 5. Deploy the stack: `yarn deploy`
 6. You should see a URL printed to the console once the stack completes deployment which you'll be able to load in a browser
-## Marking criteria (most important first)
 
-1. Function - Does it work as intended and solve the problem?
-2. Ease of making changes - Could another team member easily understand it and make changes?
-3. Typescript code quality score - This is an automated process
-4. Ease of deployment to existing AWS account - Does it conflict with other stacks?
-5. Quality of commit messages - Are they consistent and could another team member understand what each change does?
+## Previewing changes
+1. Start the demo in dev mode using: `yarn start`
+2. Browse to the link shown in the console or the URL displayed by your Github Codespace
+3. Scanning the QR code in this scenario will only work via Github Codespaces (or if you set up an alternative tunnel via e.g. [ngrok](https://ngrok.com/))
+4. You'll need to re-deploy the backend to observe any changes to it using `yarn deploy` 
+
+## Removing the stack from your AWS account
+1. Run `yarn destroy`
