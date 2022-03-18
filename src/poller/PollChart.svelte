@@ -16,6 +16,7 @@
     import { createCountStack } from "./createCountStack";
     import type { CountStack } from "./CountStack";
     import type { PollUpdates } from "./PollUpdates";
+    import { TooltipDefinition } from "carbon-components-svelte";
     export let poll: Poll;
 
     let countStack: CountStack;
@@ -60,10 +61,13 @@
         </Tile>
     {/each}
     <Tile>
-        <div class="container">
-            <a href="{location.origin}/{AppRoute.Vote}/{poll.id}">
-                <QrCode value="{location.origin}/{AppRoute.Vote}/{poll.id}" />
-            </a>
-        </div>
+        <TooltipDefinition tooltipText="Scan this QR code with a mobile device to vote">
+            <div class="container">
+                <a href="{location.origin}/{AppRoute.Vote}/{poll.id}">
+                    <QrCode value="{location.origin}/{AppRoute.Vote}/{poll.id}" />
+                </a>
+            </div>
+        </TooltipDefinition>
+
     </Tile>
 {/await}

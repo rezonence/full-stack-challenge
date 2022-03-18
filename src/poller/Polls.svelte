@@ -3,8 +3,7 @@
     import { Loading } from "carbon-components-svelte";
     import { pollsDao } from "./pollsDao";
     import PollChart from "./PollChart.svelte";
-    let pollsPromise: Promise<Poll[]>;
-    
+    let pollsPromise: Promise<Poll[]>;  
     $: pollsPromise = $pollsDao.listAll();
 </script>
 
