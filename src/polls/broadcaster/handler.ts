@@ -3,15 +3,15 @@ import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk'
 import { AttributeMap } from 'aws-sdk/clients/dynamodb'
 import { PollBroadcaster } from '../PollBroadcaster'
 import { resolveEndpoint } from '../resolveEndpoint'
-import { resolveTableName } from '../resolveTableName'
 import { orderBy, uniqBy } from 'lodash'
-import { CountItem, PollingTable } from '../../poller'
+import { CountItem } from '../../poller'
+import { connectionsTableVar } from '../connectionsTableVar'
 
 const ddb = new DynamoDB.DocumentClient()
 const api = new ApiGatewayManagementApi({
   endpoint: resolveEndpoint()
 })
-const broadcaster = new PollBroadcaster(api, ddb, resolveTableName(PollingTable.Counts) as string)
+const broadcaster = new PollBroadcaster(api, ddb, process.env[connectionsTableVar] as string)
 
 function toLatestUniqueCounts (records: StreamRecord[]): CountItem[] {
   const counts = orderBy(records, ['ApproximateCreationDateTime'], ['desc'])

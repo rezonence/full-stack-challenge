@@ -2,7 +2,6 @@ import type { CognitoIdentityCredentialProvider } from '@aws-sdk/credential-prov
 import { derived, type Readable } from 'svelte/store'
 import { credentialsProvider } from './credentialsProvider'
 
-export const identityId = derived<Readable<CognitoIdentityCredentialProvider>, string>(credentialsProvider, async (provider, set) => {
-  const creds = await provider()
-  set(creds.identityId)
+export const identityId = derived<Readable<CognitoIdentityCredentialProvider>, string>(credentialsProvider, (provider, set) => {
+  provider().then(creds => set(creds.identityId))
 })

@@ -57,7 +57,7 @@
     </Button>
   </Tile>
 
-  <!-- {#await votePromise}
+  {#await votePromise}
     <Loading />
   {:then vote}
     {#if vote}
@@ -67,7 +67,7 @@
     {/if}
   {:catch error}
     <p>{error.message}</p>
-  {/await} -->
+  {/await}
 {:catch error}
   <p>{error.message}</p>
 {/await}

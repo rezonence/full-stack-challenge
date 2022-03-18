@@ -9,6 +9,7 @@ import { endpointVar } from './endpointVar'
 import { CountKey, PollKey, VoteKey, PollingTable } from '../poller'
 import { PollsOptions } from './PollsOptions'
 import { toTableNameVar } from './toTableNameVar'
+import { connectionsTableVar } from './connectionsTableVar'
 
 export class PollsConstruct extends Construct {
   public readonly tables: Record<PollingTable, Table>;
@@ -43,6 +44,7 @@ export class PollsConstruct extends Construct {
       entry: require.resolve('./broadcaster/handler'),
       environment: {
         ...environment,
+        [connectionsTableVar]: options.connectionsTable.tableName,
         [endpointVar]: options.websocket.websocketEndpoint
       },
       timeout: Duration.minutes(5)
