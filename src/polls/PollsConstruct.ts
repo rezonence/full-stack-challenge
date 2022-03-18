@@ -18,6 +18,7 @@ export class PollsConstruct extends Construct {
 
   constructor (scope: Construct, id: string, options: PollsOptions) {
     super(scope, id)
+    const memorySize = 512
     const tableOptions = options.tableOptions
     this.tables = this.createTables(id, tableOptions)
     const tableTypes = Object.values(PollingTable)
@@ -26,6 +27,7 @@ export class PollsConstruct extends Construct {
       [toTableNameVar(tableType)]: this.tables[tableType].tableName
     }), {} as Record<PollingTable, string>)
     this.counter = new NodejsFunction(this, `${id}Counter`, {
+      memorySize,
       entry: require.resolve('./counter/handler'),
       environment,
       timeout: Duration.minutes(1)
@@ -42,6 +44,7 @@ export class PollsConstruct extends Construct {
 
     this.broadcaster = new NodejsFunction(this, `${id}Broadcaster`, {
       entry: require.resolve('./broadcaster/handler'),
+      memorySize,
       environment: {
         ...environment,
         [connectionsTableVar]: options.connectionsTable.tableName,
