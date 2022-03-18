@@ -1,6 +1,7 @@
 {
-  "name": "mach-challenge",
+  "name": "@rezonence/full-stack-challenge",
   "version": "1.0.0",
+  "private": true,
   "description": "Full-stack developer challenge",
   "main": "index.js",
   "scripts": {
