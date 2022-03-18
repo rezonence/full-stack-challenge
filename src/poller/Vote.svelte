@@ -20,7 +20,7 @@
   $: votePromise = $votesDao.getValue({
     pollId,
     identityId: $identityId,
-  });
+  })
   $: pollPromise = $pollsDao.getValue({
     id: pollId,
   });

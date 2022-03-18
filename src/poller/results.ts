@@ -10,6 +10,6 @@ export const results = derived<Readable<SiteConfig>, PollUpdates>(config, (value
   })
   socket.addEventListener('message', event => {
     console.log('Got message:', event)
-    set(event.data as PollUpdates)
+    set(JSON.parse(event.data) as PollUpdates)
   })
 })
