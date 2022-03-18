@@ -19,7 +19,7 @@
 {:then poll}
   {#await $votesDao.getValue({ pollId, identityId: $identityId })}
     <Loading />
-  {:then userVote}
+  {:then previousVote}
     <Tile>
       <h4>{poll.question}</h4>
     </Tile>
@@ -38,7 +38,7 @@
             identityId: $identityId,
             pollId: poll.id,
           })}
-        disabled={!selected}
+        disabled={!selected || !!previousVote}
       >
         Vote
       </Button>
