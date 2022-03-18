@@ -21,7 +21,7 @@ The project makes use of websockets and stream processing to display a live poll
 * [DynamoDB streams](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html) are used to trigger vote counting and websocket broadcasting logic
 * The pertinent tables and streams are configured in the [polling CDK construct](src/polls/PollsConstruct.ts)
 * The server-side code consists of [Lambda](https://aws.amazon.com/lambda/) functions responsible for keeping track of websocket connections, counting votes and broadcasting changes
-* The [vote counter](src/polls/VoteCounter.ts) recieves a stream of submitted votes via the [counter lambda function](src/polls/counter/handler.ts) and increments the counts associated with each answer
+* The [vote counter](src/polls/VoteCounter.ts) receives a stream of submitted votes via the [counter lambda function](src/polls/counter/handler.ts) and increments the counts associated with each answer
 * The [UI](src/poller/) is defined with [Svelte](https://svelte.dev) and statically hosted on [S3](https://aws.amazon.com/s3/) via [CloudFront](https://aws.amazon.com/cloudfront/)
 * The [voting component](src/poller/Vote.svelte) displays the available answers and allows a user to select one when they first interact with a poll
 
