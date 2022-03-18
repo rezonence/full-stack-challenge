@@ -1,4 +1,4 @@
-import { fromCognitoIdentityPool, CognitoIdentityCredentialProvider } from '@aws-sdk/credential-providers'
+import { fromCognitoIdentityPool, type CognitoIdentityCredentialProvider } from '@aws-sdk/credential-providers'
 import { derived, type Readable } from 'svelte/store'
 import { config } from './config'
 import type { SiteConfig } from './SiteConfig'

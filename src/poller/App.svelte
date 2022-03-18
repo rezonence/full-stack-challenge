@@ -1,6 +1,6 @@
 <script lang="ts">
   import "carbon-components-svelte/css/g10.css";
-  import { Loading, ToastNotification } from "carbon-components-svelte";
+  import { Loading } from "carbon-components-svelte";
   import { applyConfiguration } from "./applyConfiguration";
   import Router from "svelte-navigator/src/Router.svelte";
   import Route from "svelte-navigator/src/Route.svelte";
@@ -8,7 +8,8 @@
   import Vote from "./Vote.svelte";
   import { AppRoute } from "./AppRoute";
   import { RouteParam } from "./RouteParam";
-  const setupPromise = applyConfiguration();
+  import ErrorToast from "./ErrorToast.svelte";
+  const setupPromise = applyConfiguration()
 </script>
 
 {#await setupPromise}
@@ -23,9 +24,5 @@
     </Route>
   </Router>
 {:catch error}
-  <ToastNotification
-    title="Error"
-    subtitle={error.message}
-    caption={new Date().toLocaleString()}
-  />
+  <ErrorToast {error} />
 {/await}

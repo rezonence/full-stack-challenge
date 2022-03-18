@@ -7,11 +7,13 @@
     Button,
     Tile,
     Loading,
-    ToastNotification,
   } from "carbon-components-svelte";
+  import type { Vote } from "./Vote";
+  import ErrorToast from "./ErrorToast.svelte";
 
   export let pollId: string;
   let selected: string;
+  let submittedVote: Promise<Vote>;
 </script>
 
 {#await $pollsDao.getValue({ id: pollId })}
@@ -26,33 +28,28 @@
     <Tile>
       <TileGroup bind:selected>
         {#each poll.answers as answer, index}
-          <RadioTile value={index + ""}>{answer}</RadioTile>
+          <RadioTile
+            value={index + ""}
+            disabled={!!previousVote || !!submittedVote}>{answer}</RadioTile
+          >
         {/each}
       </TileGroup>
     </Tile>
     <Tile>
       <Button
         on:click={() =>
-          $votesDao.vote({
+          (submittedVote = $votesDao.vote({
             choice: parseInt(selected),
             pollId: poll.id,
-          })}
-        disabled={!selected || !!previousVote}
+          }))}
+        disabled={!selected || !!previousVote || !!submittedVote}
       >
         Vote
       </Button>
     </Tile>
   {:catch error}
-    <ToastNotification
-      title="Error"
-      subtitle={error.message}
-      caption={new Date().toLocaleString()}
-    />
+    <ErrorToast {error} />
   {/await}
 {:catch error}
-  <ToastNotification
-    title="Error"
-    subtitle={error.message}
-    caption={new Date().toLocaleString()}
-  />
+  <ErrorToast {error} />
 {/await}

@@ -3,16 +3,17 @@
     import { Loading } from "carbon-components-svelte";
     import { pollsDao } from "./pollsDao";
     import PollChart from "./PollChart.svelte";
-    let pollsPromise: Promise<Poll[]>;  
+    import ErrorToast from "./ErrorToast.svelte";
+    let pollsPromise: Promise<Poll[]>;
     $: pollsPromise = $pollsDao.listAll();
 </script>
 
 {#await pollsPromise}
-    <Loading/>
+    <Loading />
 {:then polls}
     {#each polls as poll}
-        <PollChart poll={poll}></PollChart>
+        <PollChart {poll} />
     {/each}
 {:catch error}
-    <p>{error.message}</p>
+    <ErrorToast {error} />
 {/await}
