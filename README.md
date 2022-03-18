@@ -19,8 +19,11 @@ The project makes use of websockets and stream processing to display a live poll
 * The infrastructure is defined with Typescript using the [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html), allowing values and interfaces to be shared between the infrastructure, server-side and client-side code
 * Polls, votes and counts are stored in [DynamoDB](https://aws.amazon.com/dynamodb/) tables 
 * [DynamoDB streams](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html) are used to trigger vote counting and websocket broadcasting logic
+* The pertinent tables and streams are configured in the [polling CDK construct](src/polls/PollsConstruct.ts)
 * The server-side code consists of [Lambda](https://aws.amazon.com/lambda/) functions responsible for keeping track of websocket connections, counting votes and broadcasting changes
+* The [vote counter](src/polls/VoteCounter.ts) recieves a stream of submitted votes via the [counter lambda function](src/polls/counter/handler.ts) and increments the counts associated with each answer
 * The [UI](src/poller/) is defined with [Svelte](https://svelte.dev) and statically hosted on [S3](https://aws.amazon.com/s3/) via [CloudFront](https://aws.amazon.com/cloudfront/)
+* The [voting component](src/poller/Vote.svelte) displays the available answers and allows a user to select one when they first interact with a poll
 
 ## The challenge
 Your challenge is to **enable the voter to change their answer**. This requires changes to the infrastructure definition, the server-side code and the UI - allowing you to demonstrate your understanding of how all the components of this full-stack application fit together with the limited information available.
