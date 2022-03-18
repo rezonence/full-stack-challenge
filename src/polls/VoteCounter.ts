@@ -60,10 +60,12 @@ export class VoteCounter {
   async count (votes: Vote[]): Promise<void> {
     const voteCounts = this.groupByPollAndChoice(votes)
     const countUpdates = this.toCountUpdates(voteCounts)
-    await this.ddb.transactWrite(({
-      TransactItems: countUpdates.map(u => ({
-        Update: this.toDbUpdate(u)
-      }))
-    })).promise()
+    if (countUpdates.length) {
+      await this.ddb.transactWrite(({
+        TransactItems: countUpdates.map(u => ({
+          Update: this.toDbUpdate(u)
+        }))
+      })).promise()
+    }
   }
 }

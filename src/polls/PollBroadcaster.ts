@@ -49,7 +49,7 @@ export class PollBroadcaster {
   async broadcastUpdateToConnection (connectionId: string, update: PollUpdates): Promise<void> {
     await this.api.postToConnection({
       ConnectionId: connectionId,
-      Data: update
+      Data: JSON.stringify(update)
     }).promise()
   }
 
