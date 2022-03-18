@@ -29,7 +29,7 @@ Your challenge is to **enable the voter to change their answer**. This requires 
 
 ## Getting started
 1. [Import](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/importing-a-repository-with-github-importer) this repository into your account and make sure that your copy is private
-2. Open the new repo in [Gitpod](https://www.gitpod.io/docs/getting-started) using https://gitpod.io/#<your-new-repo-url> and replacing <your-new-repo-url> with your new repository URL, alternatively you can clone and open the project locally
+2. Open the new repo in [Gitpod](https://www.gitpod.io/docs/getting-started) using https://gitpod.io/#[your-new-repo-url] and replacing [your-new-repo-url] with your new repository URL, alternatively you can clone and open the project locally
 3. Set up an [AWS account](https://aws.amazon.com/account/) 
 4. Set up admin [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) for your development environment, these can be environment variables in [Gitpod](https://www.gitpod.io/docs/environment-variables)
 5. Install the dependencies: `yarn --frozen-lockfile`
