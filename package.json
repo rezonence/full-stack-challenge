@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/rezonence/mach-challenge.git"
   },
-  "author": "",
+  "author": "Daniel Jabry <daniel.jabry@rezonence.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rezonence/mach-challenge/issues"
