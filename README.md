@@ -27,7 +27,7 @@ Your challenge is to **enable the voter to change their answer**. This requires 
 
 ## Getting started
 1. Set up an [AWS account](https://aws.amazon.com/account/) 
-2. Set up admin [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) for your development environment, these can be environment variables in [Gitpod](https://www.gitpod.io/docs/getting-started) or [Github Codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)
+2. Set up admin [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) for your development environment, these can be environment variables in [Gitpod](https://www.gitpod.io/docs/environment-variables) or [Github Codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)
 3. Install the dependencies: `yarn --frozen-lockfile`
 4. Bootstrap the AWS CDK to allow it to deploy the stack to your account: `yarn bootstrap`
 5. Deploy the stack: `yarn deploy`
