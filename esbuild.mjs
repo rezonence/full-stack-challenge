@@ -9,6 +9,11 @@ import { resolve } from 'path'
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import fetch from 'node-fetch'
 
+/**
+ * Responsible for building the client-side app.
+ * Specify the "--dev" argument to connect the app to the existing
+ * backend by downlading a live configuration file to the distribution folder
+ */
 async function build () {
   const outputDir = './dist'
   await esbuild
