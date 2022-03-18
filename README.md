@@ -12,13 +12,13 @@ This repository contains a sample full-stack application and allows candidates t
 ## What
 The project makes use of websockets and stream processing to display a live poll. A voter can scan the QR code displayed alongside the poll and submit a vote on their mobile device, the result of which should show up shortly afterwards without requiring a refresh. The infrastructure is defined with the AWS CDK
 
-## Services and frameworks
+## Project structure, frameworks and services
 
 * The infrastructure is defined with Typescript using the [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html), allowing values and interfaces to be shared between the infrastructure, server-side and client-side code
 * Polls, votes and counts are stored in [DynamoDB](https://aws.amazon.com/dynamodb/) tables 
 * [DynamoDB streams](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html) are used to trigger vote counting and websocket broadcasting logic
 * The server-side code consists of [Lambda](https://aws.amazon.com/lambda/) functions responsible for keeping track of websocket connections, counting votes and broadcasting changes
-* The UI is defined with [Svelte](https://svelte.dev) and statically hosted on [S3](https://aws.amazon.com/s3/) via [CloudFront](https://aws.amazon.com/cloudfront/)
+* The [UI](src/poller/) is defined with [Svelte](https://svelte.dev) and statically hosted on [S3](https://aws.amazon.com/s3/) via [CloudFront](https://aws.amazon.com/cloudfront/)
 
 ## The challenge
 Your challenge is to **enable the voter to change their answer**. This requires changes to the infrastructure definition, the server-side code and the UI - allowing you to demonstrate your understanding of how all the components of this full-stack application fit together with the limited information available.
