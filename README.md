@@ -1,7 +1,7 @@
 # YouGov Rezonence Full-stack developer challenge
 
 ## Why
-This repository contains a sample full-stack application and allows candidates to demonstrate their skills by taking on the challenge of adding a new feature.
+This repository contains a sample full-stack voting application and allows candidates to demonstrate their skills by taking on the challenge of adding a new feature.
 
 ## How
 1. [Import](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/importing-a-repository-with-github-importer) this repository into your account and make sure that your copy is private
