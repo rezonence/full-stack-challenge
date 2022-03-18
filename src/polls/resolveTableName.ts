@@ -1,4 +1,4 @@
-import { PollingTable } from './PollingTable'
+import { PollingTable } from '../poller'
 import { toTableNameVar } from './toTableNameVar'
 
 export function resolveTableName (type: PollingTable): string | undefined {
