@@ -1,11 +1,11 @@
-# Full-stack developer challenge
+# YouGov Rezonence Full-stack developer challenge
 
 ## Why
 This repository contains a sample full-stack application and allows candidates to demonstrate their skills by taking on the challenge of adding a new feature.
 
 ## How
 1. [Import](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/importing-a-repository-with-github-importer) this repository into your account and make sure that your copy is private
-2. Follow the steps in the [Getting started section](#getting-started) to set up your environment and backend systems
+2. Follow the steps in the [getting started section](#getting-started) to set up your environment and backend systems
 3. Implement the feature described in [the challenge section](#the-challenge) - this should hopefully take less than a day to do
 4. Submit your work by adding [@jabrythehutt](https://github.com/jabrythehutt) as a [collaborator](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-user-account/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository) to your private repository
 
