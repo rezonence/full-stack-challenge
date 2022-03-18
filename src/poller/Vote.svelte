@@ -10,16 +10,23 @@
   } from "carbon-components-svelte";
   import type { Vote } from "./Vote";
   import ErrorToast from "./ErrorToast.svelte";
+import type { VoteDao } from "./VoteDao";
 
   export let pollId: string;
   let selected: string;
-  let submittedVote: Promise<Vote>;
+  let submittedVote: Promise<Vote | undefined>;
+  
+  async function loadVote(dao: VoteDao, id: string): Promise<Vote | undefined> {
+    const vote = await dao.getForPoll(id)
+    selected = vote ? `${vote.choice}` : selected
+    return vote;
+  }
 </script>
 
 {#await $pollsDao.getValue({ id: pollId })}
   <Loading />
 {:then poll}
-  {#await $votesDao.getForPoll(pollId)}
+  {#await loadVote($votesDao, pollId)}
     <Loading />
   {:then previousVote}
     <Tile>
