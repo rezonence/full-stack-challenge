@@ -1,5 +1,7 @@
 # YouGov Rezonence Full-stack developer challenge
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rezonence/full-stack-challenge.git)
+
 ## Why
 This repository contains a sample full-stack voting application and allows candidates to demonstrate their skills by taking on the challenge of adding a new feature.
 
@@ -25,7 +27,7 @@ Your challenge is to **enable the voter to change their answer**. This requires 
 
 ## Getting started
 1. Set up an [AWS account](https://aws.amazon.com/account/) 
-2. Set up admin [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) for your development environment, these can be environment variables in [Github Codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)
+2. Set up admin [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) for your development environment, these can be environment variables in [Gitpod](https://www.gitpod.io/docs/getting-started) or [Github Codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)
 3. Install the dependencies: `yarn --frozen-lockfile`
 4. Bootstrap the AWS CDK to allow it to deploy the stack to your account: `yarn bootstrap`
 5. Deploy the stack: `yarn deploy`
@@ -33,8 +35,8 @@ Your challenge is to **enable the voter to change their answer**. This requires 
 
 ## Previewing changes
 1. Start the demo in dev mode using: `yarn start`
-2. Browse to the link shown in the console or the URL displayed by your Github Codespace
-3. Make sure that the forwarded port is [public](https://docs.github.com/en/codespaces/developing-in-codespaces/forwarding-ports-in-your-codespace#sharing-a-port) if you're using Github Codespaces to allow the QR code link to work on another device
+2. Browse to the link shown in the console or the URL displayed by your Gitpod or Github Codespace
+3. Make sure that the forwarded port is [public] if you're using [Github Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/forwarding-ports-in-your-codespace#sharing-a-port) or [Gitpod](https://www.gitpod.io/docs/config-ports) to allow the QR code link to work on another device
 4. Scanning the QR code in this scenario will only work via Github Codespaces (or if you set up an alternative tunnel via e.g. [ngrok](https://ngrok.com/))
 5. You can open the voting link in a private window if you need to submit a fresh vote
 6. You'll need to re-deploy the backend to observe any changes to it using `yarn deploy` 
