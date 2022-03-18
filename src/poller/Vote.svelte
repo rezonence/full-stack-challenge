@@ -1,7 +1,6 @@
 <script lang="ts">
   import { votesDao } from "./votesDao";
   import { pollsDao } from "./pollsDao";
-  import { identityId } from "./identityId";
   import {
     TileGroup,
     RadioTile,
@@ -10,6 +9,7 @@
     Loading,
     ToastNotification,
   } from "carbon-components-svelte";
+
   export let pollId: string;
   let selected: string;
 </script>
@@ -17,7 +17,7 @@
 {#await $pollsDao.getValue({ id: pollId })}
   <Loading />
 {:then poll}
-  {#await $votesDao.getValue({ pollId, identityId: $identityId })}
+  {#await $votesDao.getForPoll(pollId)}
     <Loading />
   {:then previousVote}
     <Tile>
@@ -33,9 +33,8 @@
     <Tile>
       <Button
         on:click={() =>
-          $votesDao.put({
+          $votesDao.vote({
             choice: parseInt(selected),
-            identityId: $identityId,
             pollId: poll.id,
           })}
         disabled={!selected || !!previousVote}
