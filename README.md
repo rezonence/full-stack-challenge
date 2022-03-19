@@ -11,7 +11,7 @@ This repository contains a sample full-stack voting application and allows candi
 3. Submit your work by adding [@jabrythehutt](https://github.com/jabrythehutt) as a [collaborator](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-user-account/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository) to your private repository
 
 ## What
-The project makes use of websockets and stream processing to display a live poll. A voter can scan the QR code displayed alongside the poll and submit a vote on their mobile device, the result of which should show up shortly afterwards without requiring a refresh. The infrastructure is defined with the AWS CDK.
+The project makes use of websockets and stream processing to display a live poll. A voter can scan the QR code displayed alongside the poll and submit a vote on their mobile device, the result of which should show up shortly afterwards without requiring a refresh. The infrastructure is defined with the [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
 
 ## Project structure, frameworks and services
 
