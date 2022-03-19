@@ -39,7 +39,7 @@ Your challenge is to **enable the voter to change their answer**. This requires 
 
 ## Previewing changes
 1. Start the demo in dev mode using: `yarn start`
-2. Browse to the link shown in the console or the URL displayed in your console
+2. Browse to the URL displayed by Gitpod or the localhost link in your console if you're running the project locally
 3. Make sure that the forwarded port is public if you're using [Gitpod](https://www.gitpod.io/docs/config-ports) to allow the QR code link to work on another device
 4. Scanning the QR code in this scenario will only work via Gitpod (or if you set up an alternative tunnel via e.g. [ngrok](https://ngrok.com/))
 5. You can open the voting link in a private window if you need to submit a fresh vote
