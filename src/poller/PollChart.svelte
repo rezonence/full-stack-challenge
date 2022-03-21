@@ -63,7 +63,7 @@
     <Tile>
         <TooltipDefinition tooltipText="Scan this QR code with a mobile device to vote">
             <div class="container">
-                <a href="{location.origin}/{AppRoute.Vote}/{poll.id}">
+                <a href="{location.origin}/{AppRoute.Vote}/{poll.id}" target="_blank">
                     <QrCode value="{location.origin}/{AppRoute.Vote}/{poll.id}" />
                 </a>
             </div>
