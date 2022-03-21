@@ -11,7 +11,6 @@
   import ErrorToast from "./ErrorToast.svelte";
   const setupPromise = applyConfiguration()
 </script>
-
 {#await setupPromise}
   <Loading />
 {:then result}
