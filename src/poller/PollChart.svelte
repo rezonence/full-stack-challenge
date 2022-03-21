@@ -39,7 +39,7 @@
     $: countsPromise = $countsDao
         .findForPollId(poll.id)
         .then((counts) => countStack.add(counts));
-    $: max = Math.max(...$countStack.map((c) => c.count));
+    $: max = Math.max(1, ...$countStack.map((c) => c.count))
     $: onUpdates($results);
 </script>
 
