@@ -17,7 +17,11 @@ export class PollStack extends Stack {
     public readonly configOutput: CfnOutput;
     constructor (scope: Construct, id: string, props: PollStackProps) {
       super(scope, id, props)
-      this.websocketApi = new DynamoWebsocketApi(this, `${id}Api`, props)
+      this.websocketApi = new DynamoWebsocketApi(this, `${id}Api`, {
+        ...props,
+        region: this.region,
+        accountId: this.account
+      })
       const websocketEndpoint = this.websocketApi.websocketEndpoint
       this.polls = new PollsConstruct(this, `${id}Data`, {
         ...props,
