@@ -67,9 +67,7 @@ export class PollsConstruct extends Construct {
       actions: [
         'execute-api:ManageConnections'
       ],
-      resources: [
-        `arn:aws:execute-api:${options.region}:${options.accountId}:${options.websocket.api.apiId}/*`
-      ]
+      resources: [options.websocket.resourceArn]
     }))
   }
 

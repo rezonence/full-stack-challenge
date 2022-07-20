@@ -51,14 +51,18 @@ export class DynamoWebsocketApi extends Construct {
         autoDeploy: true
       })
 
-      this.scheduleKeepAliveBroadcast(id, environment, options)
+      this.scheduleKeepAliveBroadcast(id, environment)
     }
 
     get websocketEndpoint (): string {
       return `${this.api.apiEndpoint}/${this.options.stage}`
     }
 
-    scheduleKeepAliveBroadcast (baseId: string, environment: Record<string, string>, options: DynamoWebsocketOptions) {
+    get resourceArn () {
+      return `arn:aws:execute-api:${this.options.region}:${this.options.accountId}:${this.api.apiId}/*`
+    }
+
+    scheduleKeepAliveBroadcast (baseId: string, environment: Record<string, string>) {
       const keepAliveBroadcaster = new NodejsFunction(this, `${baseId}KeepAliveBroadcaster`, {
         entry: require.resolve('./keepalive/handler'),
         environment: {
@@ -74,9 +78,7 @@ export class DynamoWebsocketApi extends Construct {
         actions: [
           'execute-api:ManageConnections'
         ],
-        resources: [
-          `arn:aws:execute-api:${options.region}:${options.accountId}:${this.api.apiId}/*`
-        ]
+        resources: [this.resourceArn]
       }))
 
       const universalHartbeat = new Rule(this, `${baseId}KeepAliveHeartbeat`, {
