@@ -11,5 +11,5 @@ const api = new ApiGatewayManagementApi({
 const broadcaster = new WebsocketBroadcaster(api, ddb, process.env[connectionsTableVar] as string)
 
 export const handler = async () => {
-  await broadcaster.broadcast([])
+  await broadcaster.broadcast({})
 }
