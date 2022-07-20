@@ -31,7 +31,7 @@ export class WebsocketBroadcaster<T> {
       .concat(payload as never)
       .chunk(this.BROADCAST_BATCH_SIZE)
       .value()
-    
+
     const broadcastPromises = updates.map(
       update => this.broadcastDataToConnection(connectionId, JSON.stringify(update))
     )
