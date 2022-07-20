@@ -80,7 +80,7 @@ export class DynamoWebsocketApi extends Construct {
       }))
 
       const universalHartbeat = new Rule(this, `${baseId}KeepAliveHeartbeat`, {
-        schedule: Schedule.cron({ minute: '*/8' }),
+        schedule: Schedule.cron({ minute: '*/1' }),
         targets: [new LambdaFunction(keepAliveBroadcaster)]
       })
 

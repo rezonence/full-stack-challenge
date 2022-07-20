@@ -12,4 +12,4 @@ export const results = derived<Readable<SiteConfig>, PollUpdates[]>(config, (val
     console.log('Got message:', event)
     set(JSON.parse(event.data) as PollUpdates[])
   })
-})
+}, [])
