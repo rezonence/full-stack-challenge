@@ -2,7 +2,6 @@ import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk'
 import { connectionsTableVar } from '../../polls/connectionsTableVar'
 import { resolveEndpoint } from '../../polls/resolveEndpoint'
 import { ApiGwBroadcaster } from '../../utils/Broadcaster'
-import { heartbeatChar } from '../heartbeat'
 
 const ddb = new DynamoDB.DocumentClient()
 const api = new ApiGatewayManagementApi({
@@ -11,7 +10,7 @@ const api = new ApiGatewayManagementApi({
 
 class KeepAliveBroadcaster extends ApiGwBroadcaster {
   getBroadcastRequest (connectionId: string): Promise<void | void[]> {
-    return this.broadcastDataToConnection(connectionId, heartbeatChar)
+    return this.broadcastDataToConnection(connectionId, '[]')
   }
 }
 
