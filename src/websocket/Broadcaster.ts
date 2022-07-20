@@ -1,7 +1,10 @@
 import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk'
+import { chain } from 'lodash'
 import { TableKey } from './TableKey'
 
 export class WebsocketBroadcaster<T> {
+  protected BROADCAST_BATCH_SIZE = 10
+
   constructor (private api: ApiGatewayManagementApi, private db: DynamoDB.DocumentClient, private tableName: string) {}
 
   async broadcast (payload: T) {
@@ -24,7 +27,11 @@ export class WebsocketBroadcaster<T> {
   }
 
   async broadcastToConnection (connectionId: string, payload: T) {
-    const updates = [].concat(payload as never)
+    const updates = chain([])
+      .concat(payload as never)
+      .chunk(this.BROADCAST_BATCH_SIZE)
+      .value()
+    
     const broadcastPromises = updates.map(
       update => this.broadcastDataToConnection(connectionId, JSON.stringify(update))
     )
