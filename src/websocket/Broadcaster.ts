@@ -1,22 +1,17 @@
 import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk'
-import { TableKey } from '../websocket'
-import { IBroadcaster } from './broadcaster.t'
+import { TableKey } from './TableKey'
 
-export class ApiGwBroadcaster implements IBroadcaster {
+export class WebsocketBroadcaster<T> {
   constructor (private api: ApiGatewayManagementApi, private db: DynamoDB.DocumentClient, private tableName: string) {}
 
-  getBroadcastRequest (connectionId: string): Promise<void | void[]> {
-    throw new Error(`(${connectionId}) Method not implemented.`)
-  }
-
-  async broadcast () {
+  async broadcast (payload: T) {
     const scanRequest = { TableName: this.tableName }
     let response = await this.db.scan(scanRequest).promise()
 
-    await this.broadcastToConnections(this.toConnectionIds(response.Items))
+    await this.broadcastToConnections(this.toConnectionIds(response.Items), payload)
     while (response.LastEvaluatedKey) {
       response = await this.db.scan({ ...scanRequest, ExclusiveStartKey: response.LastEvaluatedKey }).promise()
-      await this.broadcastToConnections(this.toConnectionIds(response.Items))
+      await this.broadcastToConnections(this.toConnectionIds(response.Items), payload)
     }
   }
 
@@ -24,13 +19,17 @@ export class ApiGwBroadcaster implements IBroadcaster {
     return (items || []).map(item => item[TableKey.ConnectionId] as string)
   }
 
-  async broadcastToConnections (connectionIds: string[]) {
-    await Promise.all(connectionIds.map(this.broadcastToConnection.bind(this)))
+  async broadcastToConnections (connectionIds: string[], payload: T) {
+    await Promise.all(connectionIds.map(c => this.broadcastToConnection(c, payload)))
   }
 
-  async broadcastToConnection (connectionId: string) {
+  async broadcastToConnection (connectionId: string, payload: T) {
+    const updates = [].concat(payload as never)
+    const broadcastPromises = updates.map(
+      update => this.broadcastDataToConnection(connectionId, JSON.stringify(update))
+    )
     try {
-      await this.getBroadcastRequest(connectionId)
+      await Promise.all(broadcastPromises)
     } catch (err) {
       if ((err as {statusCode: number}).statusCode === 410) {
         await this.prune(connectionId)
