@@ -58,7 +58,7 @@ export class PollsConstruct extends Construct {
     this.broadcaster.addEventSource(new DynamoEventSource(countsTable, {
       retryAttempts: 10,
       bisectBatchOnError: true,
-      batchSize: 1000,
+      batchSize: 100,
       startingPosition: StartingPosition.TRIM_HORIZON
     }))
     options.connectionsTable.grantReadWriteData(this.broadcaster)
@@ -67,9 +67,7 @@ export class PollsConstruct extends Construct {
       actions: [
         'execute-api:ManageConnections'
       ],
-      resources: [
-        `arn:aws:execute-api:${options.region}:${options.accountId}:${options.websocket.api.apiId}/*`
-      ]
+      resources: [options.websocket.resourceArn]
     }))
   }
 

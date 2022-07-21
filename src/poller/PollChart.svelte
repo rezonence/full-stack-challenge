@@ -40,7 +40,7 @@
         .findForPollId(poll.id)
         .then((counts) => countStack.add(counts));
     $: max = Math.max(1, ...$countStack.map((c) => c.count))
-    $: onUpdates($results);
+    $: $results.forEach(onUpdates);
 </script>
 
 {#await countsPromise}

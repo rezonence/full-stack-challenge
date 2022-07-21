@@ -1,5 +1,7 @@
 import { StackProps } from 'aws-cdk-lib'
-import { DynamoWebsocketOptions } from './websocket'
+import { TableOptions } from 'aws-cdk-lib/aws-dynamodb'
 
-export interface PollStackProps extends StackProps, DynamoWebsocketOptions {
+export interface PollStackProps extends StackProps {
+  stage: string;
+  tableOptions: Partial<TableOptions>;
 }

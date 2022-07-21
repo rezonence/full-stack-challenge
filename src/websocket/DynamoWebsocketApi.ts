@@ -3,10 +3,14 @@ import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { Construct } from 'constructs'
 import { WebSocketLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha'
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
+import { Rule, Schedule } from 'aws-cdk-lib/aws-events'
 import { DynamoWebsocketOptions } from './DynamoWebsocketOptions'
 import { tableNameParam } from './tableNameParam'
 import { TableKey } from './TableKey'
-
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets'
+import { endpointVar } from '../polls/endpointVar'
+import { connectionsTableVar } from '../polls/connectionsTableVar'
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
 /**
  * Keeps track of websocket connections, based on https://aws.plainenglish.io/setup-api-gateway-websocket-api-with-cdk-c1e58cf3d2be
  */
@@ -46,9 +50,42 @@ export class DynamoWebsocketApi extends Construct {
         stageName: options.stage,
         autoDeploy: true
       })
+
+      this.scheduleKeepAliveBroadcast(id, environment)
     }
 
     get websocketEndpoint (): string {
       return `${this.api.apiEndpoint}/${this.options.stage}`
+    }
+
+    get resourceArn () {
+      return `arn:aws:execute-api:${this.options.region}:${this.options.accountId}:${this.api.apiId}/*`
+    }
+
+    scheduleKeepAliveBroadcast (baseId: string, environment: Record<string, string>) {
+      const keepAliveBroadcaster = new NodejsFunction(this, `${baseId}KeepAliveBroadcaster`, {
+        entry: require.resolve('./keepalive/handler'),
+        environment: {
+          ...environment,
+          [connectionsTableVar]: this.table.tableName,
+          [endpointVar]: this.websocketEndpoint
+        }
+      })
+      this.table.grantReadWriteData(keepAliveBroadcaster)
+
+      keepAliveBroadcaster.addToRolePolicy(new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: [
+          'execute-api:ManageConnections'
+        ],
+        resources: [this.resourceArn]
+      }))
+
+      const universalHartbeat = new Rule(this, `${baseId}KeepAliveHeartbeat`, {
+        schedule: Schedule.cron({ minute: '*/8' }),
+        targets: [new LambdaFunction(keepAliveBroadcaster)]
+      })
+
+      return universalHartbeat
     }
 }
