@@ -7,8 +7,7 @@ export class PollBroadcaster {
   constructor (
     private api: ApiGatewayManagementApi,
     private db: DynamoDB.DocumentClient,
-    private tableName: string,
-    private batchSize = 10
+    private tableName: string
   ) {}
 
   /**
@@ -20,23 +19,20 @@ export class PollBroadcaster {
     await this.broadcast(pollUpdates)
   }
 
-  toUpdates (items: CountItem[]): PollUpdates[][] {
+  toUpdates (items: CountItem[]): PollUpdates[] {
     const uniqueCounts = chain(items).groupBy(CountKey.PollId).value()
-    return chain(Object.keys(uniqueCounts))
-      .map(
-        pollId => ({
-          pollId,
-          counts: uniqueCounts[pollId].reduce((counts, item) => ({
-            ...counts,
-            [item.choice]: item.count
-          }), {})
-        })
-      )
-      .chunk(this.batchSize)
-      .value()
+    return Object.keys(uniqueCounts).map(
+      pollId => ({
+        pollId,
+        counts: uniqueCounts[pollId].reduce((counts, item) => ({
+          ...counts,
+          [item.choice]: item.count
+        }), {})
+      })
+    )
   }
 
-  async broadcast (pollUpdates: PollUpdates[][]) {
+  async broadcast (pollUpdates: PollUpdates[]) {
     const scanRequest = { TableName: this.tableName }
     let response = await this.db.scan(scanRequest).promise()
 
@@ -51,23 +47,13 @@ export class PollBroadcaster {
     return (items || []).map(item => item[TableKey.ConnectionId] as string)
   }
 
-  async broadcastToConnections (connectionIds: string[], pollUpdates: PollUpdates[][]) {
+  async broadcastToConnections (connectionIds: string[], pollUpdates: PollUpdates[]) {
     await Promise.all(connectionIds.map(c => this.broadcastToConnection(c, pollUpdates)))
   }
 
-  async broadcastToConnection (connectionId: string, pollUpdates: PollUpdates[][]) {
-    const broadcastPromises = pollUpdates.map(
-      update => this.broadcastDataToConnection(connectionId, JSON.stringify(update))
-    )
-
-    if (pollUpdates.length < 1) {
-      broadcastPromises.push(
-        this.broadcastDataToConnection(connectionId, '[]')
-      )
-    }
-
+  async broadcastToConnection (connectionId: string, pollUpdates: PollUpdates[]) {
     try {
-      await Promise.all(broadcastPromises)
+      await this.broadcastDataToConnection(connectionId, JSON.stringify(pollUpdates))
     } catch (err) {
       if ((err as {statusCode: number}).statusCode === 410) {
         await this.prune(connectionId)

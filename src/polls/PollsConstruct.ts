@@ -58,7 +58,7 @@ export class PollsConstruct extends Construct {
     this.broadcaster.addEventSource(new DynamoEventSource(countsTable, {
       retryAttempts: 10,
       bisectBatchOnError: true,
-      batchSize: 1000,
+      batchSize: 100,
       startingPosition: StartingPosition.TRIM_HORIZON
     }))
     options.connectionsTable.grantReadWriteData(this.broadcaster)
